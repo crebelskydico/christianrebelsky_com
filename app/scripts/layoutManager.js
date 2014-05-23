@@ -2,7 +2,7 @@
  * @Author: Christian Rebelsky
  * @Date:   2014-05-23 23:50:49
  * @Last Modified by:   Christian Rebelsky
- * @Last Modified time: 2014-05-24 00:45:13
+ * @Last Modified time: 2014-05-24 01:07:41
  */
 
 /*jslint browser: true, devel: true, nomen: true*/
@@ -32,10 +32,8 @@ var LayoutManager = (function() {
         _pHeight = _layout.pageHeight();
         _cHeight = _layout.contentHeight();
 
-        console.log(_pHeight);
-
         if(!menu){
-            var _cTop = _pHeight/2-_cHeight/2;
+            var _cTop = _pHeight/2-_cHeight/2.5;
             $('#container').css('margin-top', _cTop+'px');
         }else{
              var _cTop = (_pHeight/2-_cHeight/2)-45;

@@ -2,14 +2,26 @@
 * @Author: Christian Rebelsky
 * @Date:   2014-05-21 06:58:29
 * @Last Modified by:   Christian Rebelsky
-* @Last Modified time: 2014-05-23 23:13:17
+* @Last Modified time: 2014-05-24 01:15:44
 */
 @import "compass/css3";
+//@import "compass/layout/sticky-footer";
+
+//@include sticky-footer(72px, "#container", "#layout_footer", "#footer");
+
 
 @import
     "settings",
     "foundation";
 
 body {
-
+    overflow:hidden;
+}
+#footer{
+    ul{
+        list-style-type: none;
+        li{
+            float:left;
+        }
+    }
 }
