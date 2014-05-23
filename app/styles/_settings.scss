@@ -1170,7 +1170,7 @@ $h2-font-size: rem-calc(52); // just for coming soon status
 // $include-html-top-bar-classes: $include-html-classes;
 
 // Background color for the top bar
-// $topbar-bg-color: #333;
+$topbar-bg-color: #4A5865;
 // $topbar-bg: $topbar-bg-color;
 
 // Height and margin
@@ -1183,16 +1183,16 @@ $h2-font-size: rem-calc(52); // just for coming soon status
 
 // Style the top bar dropdown elements
 // $topbar-dropdown-bg: #333;
-// $topbar-dropdown-link-color: #fff;
-// $topbar-dropdown-link-bg: #333;
+$topbar-dropdown-link-color: #94D4E8;
+$topbar-dropdown-link-bg: #4A5865;
 // $topbar-dropdown-link-weight: normal;
 // $topbar-dropdown-toggle-size: 5px;
 // $topbar-dropdown-toggle-color: #fff;
 // $topbar-dropdown-toggle-alpha: 0.4;
 
 // Set the link colors and styles for top-level nav
-// $topbar-link-color: #fff;
-// $topbar-link-color-hover: #fff;
+$topbar-link-color: #94D4E8;
+//$topbar-link-color-hover: #4A5865;
 // $topbar-link-color-active: #fff;
 // $topbar-link-color-active-hover: #fff;
 // $topbar-link-weight: normal;
@@ -1218,9 +1218,9 @@ $h2-font-size: rem-calc(52); // just for coming soon status
 // Top menu icon styles
 // $topbar-menu-link-transform: uppercase;
 // $topbar-menu-link-font-size: rem-calc(13);
-// $topbar-menu-link-weight: bold;
-// $topbar-menu-link-color: #fff;
-// $topbar-menu-icon-color: #fff;
+$topbar-menu-link-weight: normal;
+$topbar-menu-link-color: #94D4E8;
+$topbar-menu-icon-color: #94D4E8;
 // $topbar-menu-link-color-toggled: #888;
 // $topbar-menu-icon-color-toggled: #888;
 
