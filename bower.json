@@ -2,9 +2,7 @@
   "name": "christianrebelsky-coming-soon",
   "private": true,
   "dependencies": {
-    "modernizr": "~2.6.2",
-    "jquery": "~1.10.2",
-    "foundation": "~5.2.2"
+    "foundation": "~5.4.0"
   },
   "devDependencies": {}
 }
