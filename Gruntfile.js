@@ -158,12 +158,17 @@ module.exports = function (grunt) {
             },
             dist: {
                 options: {
-                    generatedImagesDir: '<%= yeoman.dist %>/images/generated'
+                    generatedImagesDir: '<%= yeoman.dist %>/images/generated',
+                    outputStyle: 'compressed',
+                    noLineComments: true,
+                    environment: 'production'
                 }
             },
             server: {
                 options: {
-                    debugInfo: true
+                    debugInfo: true,
+                    outputStyle: 'expanded',
+                    environment: 'development'
                 }
             }
         },
