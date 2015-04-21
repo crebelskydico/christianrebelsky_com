@@ -427,8 +427,8 @@ module.exports = function(grunt) {
         'uglify',
         'copy:dist',
         'modernizr',
-        'usemin',
-        'htmlmin'
+        'usemin'/*,
+        'htmlmin'*/
     ]);
 
     grunt.registerTask('default', [
