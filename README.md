@@ -2,4 +2,5 @@
 ### release 0.0.1
 
 ####TODO:
-remove ruby and compass, working with node sass
+working with flexbox
+exclude non flex browser
