@@ -13,24 +13,34 @@
     <meta name="description" content="Freelance front-end developer based in Hamburg, Germany.">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
     <script src="bower_components/modernizr/modernizr.js"></script>
-
 </head>
 
 <body>
     <!--[if lt IE 9]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-
     <div id="container">
         <div class="row">
             <div class="large-12 column">
                 <h1 class="text-center">
-                    <div class="logo"></div>
+                    <div class="logo">
+                       <picture>
+                            <source type="image/svg+xml" srcset="http://d22o8r5v5rxx3e.cloudfront.net/christianrebelsky-com/logo.svg 2x" />
+                            <source type="image/png"
+                                srcset="http://d22o8r5v5rxx3e.cloudfront.net/christianrebelsky-com/resized/logo-large.png  1920w,
+                                        http://d22o8r5v5rxx3e.cloudfront.net/christianrebelsky-com/resized/logo-medium.png  960w,
+                                        http://d22o8r5v5rxx3e.cloudfront.net/christianrebelsky-com/resized/logo-small.png   480w" />
+
+                            <source srcset="http://d22o8r5v5rxx3e.cloudfront.net/christianrebelsky-com/resized/logo-medium.png">
+                            <img
+                                src="http://d22o8r5v5rxx3e.cloudfront.net/christianrebelsky-com/resized/logo-medium.png"
+                                alt="Detail of the above quilt, highlighting the embroidery and exotic stitchwork." />
+                        </picture>
+                    </div>
                 </h1>
             </div>
         </div>
@@ -39,24 +49,24 @@
                 <h2 class="text-center">Coming Soon</h2>
             </div>
         </div>
-
     </div>
-
+    <script>
+    document.createElement("picture");
+    </script>
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/fastclick/lib/fastclick.js"></script>
     <script src="bower_components/foundation/js/foundation/foundation.js"></script>
     <script src="bower_components/foundation/js/foundation/foundation.topbar.js"></script>
+    <script src="bower_components/picturefill/dist/picturefill.js" async></script>
     <!-- endbower -->
     <!-- endbuild -->
-
     <!-- build:js({app,.tmp}) scripts/main.js -->
     <script src="scripts/helper.js"></script>
     <script src="scripts/layoutManager.js"></script>
     <script src="scripts/main.js"></script>
     <!-- endbuild -->
-
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
     (function(i, s, o, g, r, a, m) {
@@ -65,7 +75,7 @@
             (i[r].q = i[r].q || []).push(arguments)
         }, i[r].l = 1 * new Date();
         a = s.createElement(o),
-        m = s.getElementsByTagName(o)[0];
+            m = s.getElementsByTagName(o)[0];
         a.async = 1;
         a.src = g;
         m.parentNode.insertBefore(a, m)
@@ -75,7 +85,6 @@
     ga('set', 'anonymizeIp', true);
     ga('send', 'pageview');
     </script>
-
 </body>
 
 </html>
