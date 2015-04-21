@@ -173,6 +173,35 @@ module.exports = function(grunt) {
             }
         },
 
+        sass: {
+            dev: {
+                options: { // Target options
+                    style: 'expanded',
+                    loadPath: '<%= yeoman.app %>/bower_components'
+                },
+                files: [{
+                    expand: true,
+                    cwd: '<%= yeoman.app %>/styles',
+                    src: ['**.scss'],
+                    dest: '.tmp/styles',
+                    ext: '.css'
+                }]
+            },
+            dist: {
+                options: { // Target options
+                    style: 'compressed',
+                    loadPath: '<%= yeoman.app %>/bower_components'
+                },
+                files: [{
+                    expand: true,
+                    cwd: '<%= yeoman.app %>/styles',
+                    src: ['**.scss'],
+                    dest: '.tmp/styles',
+                    ext: '.css'
+                }]
+            }
+        },
+
         // Add vendor prefixed styles
         autoprefixer: {
             options: {
@@ -223,7 +252,13 @@ module.exports = function(grunt) {
         // Performs rewrites based on rev and the useminPrepare configuration
         usemin: {
             options: {
-                assetsDirs: ['<%= yeoman.dist %>']
+                assetsDirs: ['<%= yeoman.dist %>'],
+                blockReplacements: {
+                    js: function(block) {
+                        return '<script async src="' + block.dest + '"></script>';
+                    }
+                }
+
             },
             html: ['<%= yeoman.dist %>/{,*/}*.html'],
             css: ['<%= yeoman.dist %>/styles/{,*/}*.css']
@@ -364,7 +399,7 @@ module.exports = function(grunt) {
         // Run some tasks in parallel to speed up build process
         concurrent: {
             server: [
-                'compass:server',
+                'sass:dev',
                 'copy:styles',
                 'responsive_images:dev'
             ],
@@ -372,7 +407,7 @@ module.exports = function(grunt) {
                 'copy:styles'
             ],
             dist: [
-                'compass',
+                'sass:dist',
                 'copy:styles',
                 'imagemin',
                 'svgmin'
@@ -425,9 +460,8 @@ module.exports = function(grunt) {
         'uglify',
         'copy:dist',
         'modernizr',
-        //'rev',
         'usemin',
-        //'htmlmin'
+        'htmlmin'
     ]);
 
     grunt.registerTask('default', [
