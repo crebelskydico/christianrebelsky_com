@@ -1,11 +1,13 @@
 {
-  "name": "christianrebelsky-coming-soon",
-  "private": true,
-  "dependencies": {
-    "foundation": "~5.4.0",
-    "jquery": "~1.10.0",
-    "picturefill": "~2.3.1"
-  },
-  "devDependencies": {
-  }
+    "name": "christianrebelsky-coming-soon",
+    "private": true,
+    "dependencies": {
+        "foundation": "~5.4.0",
+        "jquery": "~1.10.0",
+        "picturefill": "~2.3.1"
+    },
+    "devDependencies": {},
+    "resolutions": {
+        "jquery": "~1.10.0"
+    }
 }
