@@ -7,7 +7,7 @@
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
 
     // Load grunt tasks automatically
     require('load-grunt-tasks')(grunt);
@@ -270,6 +270,29 @@ module.exports = function (grunt) {
                 }]
             }
         },
+        responsive_images: {
+            dev: {
+                options: {
+                    newFilesOnly: true,
+                    sizes: [{
+                        name: 'small',
+                        width: 480
+                    }, {
+                        name: 'medium',
+                        width: 960
+                    }, {
+                        name: 'large',
+                        width: 1920,
+                    }]
+                },
+                files: [{
+                    expand: true,
+                    src: ['**.{jpg,gif,png}'],
+                    cwd: '<%= yeoman.app %>/images/',
+                    dest: '<%= yeoman.app %>/images/resized'
+                }]
+            }
+        },
 
         // By default, your `index.html`'s <!-- Usemin block --> will take care of
         // minification. These next options are pre-configured if you do not wish
@@ -311,7 +334,7 @@ module.exports = function (grunt) {
                         'images/{,*/}*.webp',
                         '{,*/}*.html',
                         'styles/fonts/{,*/}*.*',
-                        'bower_components/' + (this.includeCompass ? 'sass-' : '') + 'bootstrap/' + (this.includeCompass ? 'fonts/' : 'dist/fonts/') +'*.*'
+                        'bower_components/' + (this.includeCompass ? 'sass-' : '') + 'bootstrap/' + (this.includeCompass ? 'fonts/' : 'dist/fonts/') + '*.*'
                     ]
                 }]
             },
@@ -342,7 +365,8 @@ module.exports = function (grunt) {
         concurrent: {
             server: [
                 'compass:server',
-                'copy:styles'
+                'copy:styles',
+                'responsive_images:dev'
             ],
             test: [
                 'copy:styles'
@@ -357,7 +381,7 @@ module.exports = function (grunt) {
     });
 
 
-    grunt.registerTask('serve', function (target) {
+    grunt.registerTask('serve', function(target) {
         if (target === 'dist') {
             return grunt.task.run(['build', 'connect:dist:keepalive']);
         }
@@ -371,7 +395,7 @@ module.exports = function (grunt) {
         ]);
     });
 
-    grunt.registerTask('server', function () {
+    grunt.registerTask('server', function() {
         grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
         grunt.task.run(['serve']);
     });
