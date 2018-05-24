@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+  - "stable"
+
+install:
+  - "npm i"
+  - "npm i -g bower"
+  - "npm i grunt-cli"
+  - "bower install"
+
+script:
+  - "npm run build"
