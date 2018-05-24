@@ -1,12 +1,19 @@
 language: node_js
 node_js:
-  - "stable"
-
+  - stable
+before_install:
+  - openssl aes-256-cbc -K $encrypted_3d2a0d7bd1ad_key -iv $encrypted_3d2a0d7bd1ad_iv
+  -in travis_rsa.enc -out travis_rsa -d
 install:
-  - "npm i"
-  - "npm i -g bower"
-  - "npm i grunt-cli"
-  - "bower install"
-
+  - npm i
+  - npm i -g bower
+  - npm i grunt-cli
+  - bower install
 script:
-  - "npm run build"
+  - npm run build
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: .travis/deploy.sh
+  on:
+    all_branches: true
