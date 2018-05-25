@@ -21,13 +21,49 @@ body {
     width:250px;
     height:250px;
     margin: 0 auto;
+    &.logo-small {
+        padding-top: 50px;
+    }
 }
 
+#header {
+    ul {
+        margin-top: 145px;
+        li{
+            display: inline;
+            float: left;
+            margin-right: 10px;
+
+            a {
+                color: #C0D2CA;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}
+
+
 #footer{
+    margin-top: 60px;
+    .footer-wrapper {
+        display: table;
+        margin: 0 auto;
+    }
     ul{
         list-style-type: none;
         li{
-            float:left;
+            display: inline;
+            float: left;
+            margin-right: 10px;
+
+            a {
+                color: #C0D2CA;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
         }
     }
 }
