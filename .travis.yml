@@ -18,4 +18,3 @@ deploy:
   script: ".travis/deploy.sh"
   on:
     all_branches: true
-    condition: "$TRAVIS_BRANCH =~ ^develop|master"
