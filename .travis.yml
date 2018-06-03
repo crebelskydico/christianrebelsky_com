@@ -1,17 +1,20 @@
 language: node_js
 node_js:
-- stable
+  - stable
 before_install:
-- openssl aes-256-cbc -K $encrypted_3d2a0d7bd1ad_key -iv $encrypted_3d2a0d7bd1ad_iv
-  -in travis_rsa.enc -out ~/.ssh/travis_rsa -d
-- chmod 600 ~/.ssh/travis_rsa
+  - openssl aes-256-cbc -K $encrypted_3d2a0d7bd1ad_key -iv $encrypted_3d2a0d7bd1ad_iv
+    -in travis_rsa.enc -out ~/.ssh/travis_rsa -d
+  - chmod 600 ~/.ssh/travis_rsa
 install:
-- npm i
-- npm i -g bower
-- npm i grunt-cli
-- bower install
+  - npm i
+  - npm i -g bower
+  - npm i grunt-cli
+  - bower install
+before_script:
+  - echo -e "Host christianrebelsky.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 script:
-- npm run build
+  - npm run build
 deploy:
   skip_cleanup: true
   provider: script
