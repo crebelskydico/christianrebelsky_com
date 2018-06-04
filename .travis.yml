@@ -15,8 +15,6 @@ before_script:
   - echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 script:
   - npm run build
-before_deploy:
-  - "git push origin master:refs/heads/master"
 deploy:
   skip_cleanup: true
   provider: script
