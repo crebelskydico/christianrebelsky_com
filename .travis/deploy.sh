@@ -11,7 +11,7 @@ git config user.name "Travis CI"
 git config user.email "travis@christianrebelsky.com"
 git branch
 git add .
-git commit -m "Deploy"
+git commit -m "Deploy from Travis - build {$TRAVIS_BUILD_NUMBER}"
 git status
-git push -f deploy HEAD:master
+git push -f deploy master
 
