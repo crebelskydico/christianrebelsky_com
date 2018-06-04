@@ -9,6 +9,7 @@ ssh-add ~/.ssh/travis_rsa
 git remote add deploy "travis@christianrebelsky.com:/var/www/christianrebelsky"
 git config user.name "Travis CI"
 git config user.email "travis@christianrebelsky.com"
+git branch
 git add .
 git commit -m "Deploy"
 git push -f deploy HEAD:master
