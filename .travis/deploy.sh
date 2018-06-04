@@ -12,5 +12,6 @@ git config user.email "travis@christianrebelsky.com"
 git branch
 git add .
 git commit -m "Deploy"
+git status
 git push -f deploy HEAD:master
 

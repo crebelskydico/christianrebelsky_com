@@ -1,19 +1,23 @@
 language: node_js
+notifications:
+  email: false
+  slack:
+    secure: TKf+ZOtGserrKVwmOXwpu4p5bMdrz7IDj9cK2Ag4WvSRvq+SHiD8U4/Uf7Eae1rudVg47p5HxrNYN3J/IN1z8PuNYRGYYir0xas8kCNARtR+amtGzUd1UvpgALXBiMS9xbVl1i1JBpkoFVR2zmwv2sg+wt4GoyIBEhUw5IFQlMULXurO/pkBqv84OE9Kz5m+csEYI4y6NOxZxKzcEOmvtDCn5RW+Bit2K7J/36pInqtN0ZijsmlTvaMXspP8cWBGkVfLWgxqmIiy6+ce1HWGq3tMdxJ+GHDc/22kfDsa+pb/Lv8peD1zbMZeUII7pkKKzMPk4ELaL5oVgNfmomSg28dPfFbQUPRyYwoN5LzQZarCavP3z8qZ2OlcmC4URjJoBmTV7/OhbBvpehEbvlBEbUpNGRQuirr94XsoM5IlkmTcVE4fzD5YKpnS2O8J8JCAB79dYg7y7Xv9Lw5QaT1fUyQBqMY+ul4E7Lku9UIcQX26lF0E1tQ4X6e0W87GNZvLJs7LWPDcJI5+w9PNx4KeXdQC0+gAzLvaVXXfa/wHd1mTZuXJy/dJBNP/d6oiFO1rHKGv37BedyoAj54t4SY2km42P8G8sthLGP+BYiz/8fB6fRUcT6+xxQjyRgZE4h3QEGeNf1LaCnMQLXKzpcjZeK5L4nX8srpeMVXPeRsMehA=
 node_js:
-  - stable
+- stable
 before_install:
-  - openssl aes-256-cbc -K $encrypted_3d2a0d7bd1ad_key -iv $encrypted_3d2a0d7bd1ad_iv
-    -in $TRAVIS_BUILD_DIR/.travis/travis_rsa.enc -out ~/.ssh/travis_rsa -d
-  - chmod 600 ~/.ssh/travis_rsa
+- openssl aes-256-cbc -K $encrypted_3d2a0d7bd1ad_key -iv $encrypted_3d2a0d7bd1ad_iv
+  -in $TRAVIS_BUILD_DIR/.travis/travis_rsa.enc -out ~/.ssh/travis_rsa -d
+- chmod 600 ~/.ssh/travis_rsa
 install:
-  - npm i
-  - npm i -g bower
-  - npm i grunt-cli
-  - bower install
+- npm i
+- npm i -g bower
+- npm i grunt-cli
+- bower install
 script:
-  - npm run build
+- npm run build
 before_deploy:
-  - echo -e "Host christianrebelsky.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+- echo -e "Host christianrebelsky.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 deploy:
   skip_cleanup: true
   provider: script
