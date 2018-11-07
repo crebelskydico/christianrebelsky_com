@@ -23,7 +23,12 @@ before_deploy:
 deploy:
   - provider: script
     skip_cleanup: true
-    script: sh $TRAVIS_BUILD_DIR/.travis/deploy.sh
+    script: sh $TRAVIS_BUILD_DIR/.travis/deploy-production.sh
+    on:
+      branch: master
+  - provider: script
+    skip_cleanup: true
+    script: sh $TRAVIS_BUILD_DIR/.travis/deploy-stage.sh
     on:
       branch: master
   - provider: s3
@@ -37,3 +42,14 @@ deploy:
     upload-dir: stage
     on:
       branch: tech/*
+  - provider: s3
+    endpoint: https://ams3.digitaloceanspaces.com
+    access_key_id: MWLE3EHXBTGYQK77CBFM
+    secret_access_key:
+      secure: "aWgzcPIkcfOitFdhsOCbZgFwyC/LQCqIugzpW7tP3yVJXwRl7mSGiwW7awSZDpmch2TcI8uYe5PkPrYb1PZCNqqaDBcjpJ+JvKgV2Pfa5hbAvL7BSw4y5ysjyEPeoNbAkVA0zOncgKh+TcyXMeWLxS6f1nN0AFKuG+PGZg9blbsnml+gK2IdV1olL15J0fbq71iHj7rJerWyETmfLVn9NLUDpryBihdFkqxL/nNhIFfkEGR04n2GnXltOZK0G26SMX8knu+YJNA+cFvwjhCW3+BPe+P7bkgwHT+BNt0HetkiXJZCvoVyVAw/W+5Kb0xIKGNPhmli4LKL9/KwNlFKXHc/jOl9yQtizYGvAe3Mw1u9lwVScE361HNgQeYtUYZt3rmmOuy2m+4uVC2SdKd+wxO/ZIF8xRs3YTocp0RZA5l0+UMELCGI91MwXlRzlWg+T9s87qkVXtI7w4CNHeNhFZSm865tA+niAX/lyLaLSQxenqh2XYJWvpVZ1qQb1u3xgYT5aLMnG4DhyA9666XJHKOp0ZKej6lCdGojetCCH/d8uj5H5FDd9EBi1XJv9Z5zqFDUXuqfHuqdUDIoHmFN0jer1qX20fgvco5/DBt8PueoaY3Ba7pAlgl+spRW2LI3cp3PNvme+l+Mb4giblYGodz9x/Iw6mfDyjhwPslgN2o="
+    bucket: cr-asset-space
+    skip_cleanup: true
+    local_dir: dist
+    upload-dir: production
+    on:
+      branch: master
