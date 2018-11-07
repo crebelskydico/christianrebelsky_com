@@ -1,7 +1,9 @@
 language: node_js
 node_js:
   - '6'
-cache: npm
+cache:
+  directories:
+    - node_modules
 notifications:
   email: false
   slack:
@@ -29,8 +31,9 @@ deploy:
   - provider: script
     skip_cleanup: true
     script: sh $TRAVIS_BUILD_DIR/.travis/deploy-stage.sh
-    on:
-      branch: master
+    branches:
+      except:
+      - master
   - provider: s3
     endpoint: https://ams3.digitaloceanspaces.com
     access_key_id: MWLE3EHXBTGYQK77CBFM
