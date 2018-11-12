@@ -1,1 +1,1 @@
-## temporaray landing page
+## temporary landing page
