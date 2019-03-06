@@ -1,0 +1,88 @@
+version: 2
+jobs:
+  checkout_code:
+    docker:
+      - image: circleci/node:latest
+    working_directory: ~/christianrebelsky.com
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/christianrebelsky.com
+      - restore_cache:
+          keys:
+            - yarn-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - yarn-cache-{{ .Branch }}
+            - yarn-cache-
+      - run: yarn install
+      - save_cache:
+          key: yarn-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          paths: node_modules
+      - persist_to_workspace:
+          root: .
+          paths: .
+  check_vulnerabilities:
+    docker:
+      - image: circleci/node:latest
+    working_directory: ~/christianrebelsky.com
+    steps:
+      - attach_workspace:
+          at: ~/christianrebelsky.com
+      - run: yarn install
+      - run: |
+          if [ "${CIRCLE_BRANCH}" == "production" ]; then
+            yarn validate:dependencies
+          else
+            yarn validate:dependencies || true
+          fi
+  test:
+    docker:
+      - image: circleci/node:latest
+    working_directory: ~/christianrebelsky.com
+    steps:
+      - attach_workspace:
+          at: ~/christianrebelsky.com
+      - run: yarn install
+      - run: CI=true yarn test
+  build:
+    docker:
+      - image: circleci/node:latest
+    working_directory: ~/christianrebelsky.com
+    steps:
+      - attach_workspace:
+          at: ~/christianrebelsky.com
+      - run: yarn install
+      - run:
+          name: yarn build
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "production" ]; then
+              CI=true PUBLIC_URL=https://christianrebelsky.com-production.now.sh yarn build
+            elif [ "${CIRCLE_BRANCH}" == "development" ]; then
+              CI=true PUBLIC_URL=https://christianrebelsky.com-alpha.now.sh yarn build
+            elif [ "${CIRCLE_BRANCH}" == "master" ]; then
+              CI=true PUBLIC_URL=https://christianrebelsky.com-beta.now.sh yarn build
+            else
+              echo "This failed miserably!"
+            fi
+      - persist_to_workspace:
+          root: .
+          paths: .
+workflows:
+  version: 2
+  test_build_deploy:
+    jobs:
+      - checkout_code
+      - check_vulnerabilities:
+          requires:
+            - checkout_code
+      - test:
+          requires:
+            - checkout_code
+      - build:
+          requires:
+            - checkout_code
+          filters:
+            branches:
+              only:
+                - development
+                - master
+                - production
