@@ -5,6 +5,7 @@ jobs:
       - image: circleci/node:latest
     working_directory: ~/christianrebelsky.com
     steps:
+      - run: node -v
       - checkout
       - attach_workspace:
           at: ~/christianrebelsky.com
@@ -58,9 +59,7 @@ jobs:
       - add_ssh_keys
       - run: ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
       - run: echo 'THE FINGERPRINT' >> ~/.ssh/known_hosts
-      - run:
-        - name: upload files to DO
-        - command: scp ~/christianrebelsky.com/public ssh -o StrictHostKeyChecking=no $DROPLET_USER@$DROPLET_IP:/var/www/christianrebelsky-stage/
+      - run: scp ~/christianrebelsky.com/public ssh -o StrictHostKeyChecking=no $DROPLET_USER@$DROPLET_IP:/var/www/christianrebelsky-stage/
 workflows:
   version: 2
   test_build:
