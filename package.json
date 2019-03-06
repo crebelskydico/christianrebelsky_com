@@ -11,7 +11,7 @@
     "build:favicons": "node scripts/favicons",
     "build": "npm run build:dir && npm run build:favicons && gatsby build",
     "test": "ava **/*.test.js --verbose",
-    "validate:dependencies": "npm run audit"
+    "validate:dependencies": "npm audit"
   },
   "dependencies": {
     "@reach/dialog": "^0.1.2",

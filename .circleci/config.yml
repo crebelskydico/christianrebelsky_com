@@ -42,18 +42,7 @@ jobs:
       - attach_workspace:
           at: ~/christianrebelsky.com
       - run: yarn install
-      - run:
-          name: yarn build
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "production" ]; then
-              CI=true PUBLIC_URL=https://christianrebelsky.com-production.now.sh yarn build
-            elif [ "${CIRCLE_BRANCH}" == "development" ]; then
-              CI=true PUBLIC_URL=https://christianrebelsky.com-alpha.now.sh yarn build
-            elif [ "${CIRCLE_BRANCH}" == "master" ]; then
-              CI=true PUBLIC_URL=https://christianrebelsky.com-beta.now.sh yarn build
-            else
-              echo "This failed miserably!"
-            fi
+      - run: yarn build
       - persist_to_workspace:
           root: .
           paths: .
@@ -63,9 +52,6 @@ workflows:
     jobs:
       - checkout_code
       - check_vulnerabilities:
-          requires:
-            - checkout_code
-      - test:
           requires:
             - checkout_code
       - build:
