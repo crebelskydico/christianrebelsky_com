@@ -72,4 +72,4 @@ workflows:
       - deployment:
           requires:
            - check_vulnerabilities
-            - build
+           - build
