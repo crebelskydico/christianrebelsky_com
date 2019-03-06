@@ -59,7 +59,7 @@ jobs:
       - add_ssh_keys
       - run: ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
       - run: echo 'THE FINGERPRINT' >> ~/.ssh/known_hosts
-      - run: scp ~/christianrebelsky.com/public ssh -o StrictHostKeyChecking=no $DROPLET_USER@$DROPLET_IP:/var/www/christianrebelsky-stage/
+      - run: scp -o StrictHostKeyChecking=no -r ~/christianrebelsky.com/public $DROPLET_USER@$DROPLET_IP:/var/www/christianrebelsky-stage/
 workflows:
   version: 2
   test_build:
