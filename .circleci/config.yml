@@ -46,6 +46,18 @@ jobs:
       - persist_to_workspace:
           root: .
           paths: .
+  deployment:
+    docker:
+      - image: circleci/node:latest
+    working_directory: ~/christianrebelsky.com
+    steps:
+      - attach_workspace:
+          at: ~/christianrebelsky.com
+      - run: yarn install
+      - run:  echo 'deploying branch'
+      - add_ssh_keys
+      - run: echo 'THE FINGERPRINT' >> ~/.ssh/known_hosts
+      - run: scp ~/christianrebelsky.com/public ssh -o StrictHostKeyChecking=no $DROPLET_USER@$DROPLET_IP:/var/www/christianrebelsky-stage/
 workflows:
   version: 2
   test_build:
@@ -57,3 +69,7 @@ workflows:
       - build:
           requires:
             - checkout_code
+      - deployment:
+        requires:
+          - check_vulnerabilities
+          - build
