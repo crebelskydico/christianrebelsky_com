@@ -56,8 +56,11 @@ jobs:
       - run: yarn install
       - run:  echo 'deploying branch'
       - add_ssh_keys
+      - run: ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
       - run: echo 'THE FINGERPRINT' >> ~/.ssh/known_hosts
-      - run: scp ~/christianrebelsky.com/public ssh -o StrictHostKeyChecking=no $DROPLET_USER@$DROPLET_IP:/var/www/christianrebelsky-stage/
+      - run:
+        - name: upload files to DO
+        - command: scp ~/christianrebelsky.com/public ssh -o StrictHostKeyChecking=no $DROPLET_USER@$DROPLET_IP:/var/www/christianrebelsky-stage/
 workflows:
   version: 2
   test_build:
