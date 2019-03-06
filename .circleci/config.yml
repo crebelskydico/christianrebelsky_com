@@ -70,6 +70,6 @@ workflows:
           requires:
             - checkout_code
       - deployment:
-        requires:
-          - check_vulnerabilities
-          - build
+          requires:
+           - check_vulnerabilities
+            - build
