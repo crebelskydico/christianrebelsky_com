@@ -34,15 +34,6 @@ jobs:
           else
             yarn validate:dependencies || true
           fi
-  test:
-    docker:
-      - image: circleci/node:latest
-    working_directory: ~/christianrebelsky.com
-    steps:
-      - attach_workspace:
-          at: ~/christianrebelsky.com
-      - run: yarn install
-      - run: CI=true yarn test
   build:
     docker:
       - image: circleci/node:latest
@@ -68,7 +59,7 @@ jobs:
           paths: .
 workflows:
   version: 2
-  test_build_deploy:
+  test_build:
     jobs:
       - checkout_code
       - check_vulnerabilities:
@@ -80,9 +71,3 @@ workflows:
       - build:
           requires:
             - checkout_code
-          filters:
-            branches:
-              only:
-                - development
-                - master
-                - production
