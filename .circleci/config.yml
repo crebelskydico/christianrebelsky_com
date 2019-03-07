@@ -47,10 +47,6 @@ jobs:
       - persist_to_workspace:
           root: .
           paths: .
-      - save_cache:
-          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
-          paths:
-              - public
   deployment:
     docker:
       - image: circleci/node:latest
@@ -58,8 +54,6 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/christianrebelsky.com
-      - restore_cache:
-          key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
       - run:
           name: Install aws cli
           command:
@@ -73,12 +67,12 @@ jobs:
       - deploy:
           name: deploy to DO server
           command: |
-            scp -o StrictHostKeyChecking=no -r public $DROPLET_USER@$DROPLET_IP:/var/www/christianrebelsky-stage/
+            scp -o StrictHostKeyChecking=no -r ~/christianrebelsky.com/public $DROPLET_USER@$DROPLET_IP:/var/www/christianrebelsky-stage/
       - deploy:
           name: deploy to DO space
           command: |
             echo "Deploy to space" |
-            aws --endpoint=https://ams3.digitaloceanspaces.com s3 sync public/icon
+            aws s3  --endpoint=https://ams3.digitaloceanspaces.com sync ~/christianrebelsky.com/public/icon
             s3://cr-asset-space/test --delete --acl public-read
 workflows:
   version: 2
