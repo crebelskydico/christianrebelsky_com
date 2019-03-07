@@ -67,7 +67,7 @@ jobs:
       - run:
           name: check buckets
           command: |
-            aws s3 ls --endpoint=https://ams3.digitaloceanspaces.com
+            aws s3 --endpoint=https://ams3.digitaloceanspaces.com
       - deploy:
           name: deploy to DO server
           command: |
