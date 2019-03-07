@@ -57,18 +57,17 @@ jobs:
       - run:  echo 'deploying branch'
       - add_ssh_keys
       - run:
-        name: add key to known hosts
-        command: |
-          ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
+          name: add key to known hosts
+          command: |
+            ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
       - deploy:
-        name: deploy to DO server
-        command: |
-          scp -o StrictHostKeyChecking=no -r ~/christianrebelsky.com/public
-          $DROPLET_USER@$DROPLET_IP:/var/www/christianrebelsky-stage/
+          name: deploy to DO server
+          command: |
+            scp -o StrictHostKeyChecking=no -r ~/christianrebelsky.com/public $DROPLET_USER@$DROPLET_IP:/var/www/christianrebelsky-stage/
       - deploy:
-        name: deploy to DO space
-        command: |
-          echo "Deploy to space"
+          name: deploy to DO space
+          command: |
+            echo "Deploy to space"
 workflows:
   version: 2
   test_build:
