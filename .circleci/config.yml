@@ -64,6 +64,10 @@ jobs:
           name: add key to known hosts
           command: |
             ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
+      - run:
+          name: check buckets
+          command: |
+            aws s3 ls --endpoint=https://ams3.digitaloceanspaces.com
       - deploy:
           name: deploy to DO server
           command: |
@@ -72,8 +76,8 @@ jobs:
           name: deploy to DO space
           command: |
             echo "Deploy to space" |
-            aws s3 sync --acl-public --skip-existing --verbose  ~/christianrebelsky.com/public/icon
-            s3://cr-asset-space.ams3.digitaloceanspaces.com/test
+            aws s3 sync ~/christianrebelsky.com/public/icon s3://cr-asset-space/test --acl-public --skip-existing
+            --verbose --delete
 workflows:
   version: 2
   test_build:
