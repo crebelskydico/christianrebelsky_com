@@ -71,7 +71,8 @@ jobs:
       - deploy:
           name: deploy to DO space
           command: |
-            echo "Deploy to space"
+            echo "Deploy to space" |
+            aws s3 sync  ~/christianrebelsky.com/public/icon https://ams3.digitaloceanspaces.com --delete
 workflows:
   version: 2
   test_build:
