@@ -49,17 +49,26 @@ jobs:
           paths: .
   deployment:
     docker:
-      - image: circleci/node:latest
+      - image: garland/aws-cli-docker
     working_directory: ~/christianrebelsky.com
     steps:
       - attach_workspace:
           at: ~/christianrebelsky.com
-      - run: yarn install
       - run:  echo 'deploying branch'
       - add_ssh_keys
-      - run: ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
-      - run: echo 'THE FINGERPRINT' >> ~/.ssh/known_hosts
-      - run: scp -o StrictHostKeyChecking=no -r ~/christianrebelsky.com/public $DROPLET_USER@$DROPLET_IP:/var/www/christianrebelsky-stage/
+      - run:
+        name: add key to known hosts
+        command: |
+          ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
+      - deploy:
+        name: deploy to DO server
+        command: |
+          scp -o StrictHostKeyChecking=no -r ~/christianrebelsky.com/public
+          $DROPLET_USER@$DROPLET_IP:/var/www/christianrebelsky-stage/
+      - deploy:
+        name: deploy to DO space
+        command: |
+          echo "Deploy to space"
 workflows:
   version: 2
   test_build:
