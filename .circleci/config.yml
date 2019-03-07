@@ -72,7 +72,8 @@ jobs:
           name: deploy to DO space
           command: |
             echo "Deploy to space" |
-            aws s3 sync  ~/christianrebelsky.com/public/icon https://ams3.digitaloceanspaces.com --delete
+            aws s3 sync --acl-public --skip-existing --verbose  ~/christianrebelsky.com/public/icon
+            s3://cr-asset-space.ams3.digitaloceanspaces.com/test
 workflows:
   version: 2
   test_build:
