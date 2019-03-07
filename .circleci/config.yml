@@ -49,11 +49,15 @@ jobs:
           paths: .
   deployment:
     docker:
-      - image: garland/aws-cli-docker
+      - image: circleci/node:latest
     working_directory: ~/christianrebelsky.com
     steps:
       - attach_workspace:
           at: ~/christianrebelsky.com
+      - run:
+          name: Install aws cli
+          command:
+            sudo apt-get -y -qq install awscli
       - run:  echo 'deploying branch'
       - add_ssh_keys
       - run:
