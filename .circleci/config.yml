@@ -62,7 +62,6 @@ jobs:
             sudo pip install awscli
             aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
             aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-            aws --endpoint-url https://ams3.digitaloceanspaces.com
       - run:  echo 'deploying branch'
       - add_ssh_keys
       - run:
@@ -76,7 +75,7 @@ jobs:
       - deploy:
           name: deploy to DO space
           command: |
-            aws s3 sync public/icon s3://cr-asset-space/test --delete --region ams3 --acl public-read
+            aws --endpoint-url https://ams3.digitaloceanspaces.com s3 sync public/icon s3://cr-asset-space/test --delete --region ams3 --acl public-read
 workflows:
   version: 2
   test_build:
