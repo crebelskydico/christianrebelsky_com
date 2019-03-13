@@ -47,7 +47,24 @@ jobs:
       - persist_to_workspace:
           root: .
           paths: .
-  deployment:
+  app_deployment:
+    docker:
+      - image: circleci/node:latest
+    working_directory: ~/christianrebelsky.com
+    steps:
+      - attach_workspace:
+          at: ~/christianrebelsky.com
+      - run:  echo 'deploying branch'
+      - add_ssh_keys
+      - run:
+          name: add key to known hosts
+          command: |
+            ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
+      - deploy:
+          name: deploy to DO server
+          command: |
+            scp -o StrictHostKeyChecking=no -r ~/christianrebelsky.com/public $DROPLET_USER@$DROPLET_IP:/var/www/christianrebelsky-stage/
+  asset_deployment:
     docker:
       - image: circleci/node:latest
     working_directory: ~/christianrebelsky.com
@@ -62,23 +79,13 @@ jobs:
             sudo pip install awscli
             aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
             aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-      - run:  echo 'deploying branch'
-      - add_ssh_keys
-      - run:
-          name: add key to known hosts
-          command: |
-            ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
-      - deploy:
-          name: deploy to DO server
-          command: |
-            scp -o StrictHostKeyChecking=no -r ~/christianrebelsky.com/public $DROPLET_USER@$DROPLET_IP:/var/www/christianrebelsky-stage/
       - deploy:
           name: deploy to DO space
           command: |
             aws --endpoint-url $DO_SPACES_ENDPOINT --region $DO_SPACES_REGION --output json s3 sync ~/christianrebelsky.com/public/icons s3://cr-asset-space/test --delete --acl public-read
 workflows:
   version: 2
-  test_build:
+  build_deploy:
     jobs:
       - checkout_code
       - check_vulnerabilities:
@@ -87,7 +94,10 @@ workflows:
       - build:
           requires:
             - checkout_code
-      - deployment:
+      - app_deployment:
           requires:
            - check_vulnerabilities
            - build
+      - asset_deployment:
+          requires:
+            - app_deployment
