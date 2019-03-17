@@ -101,7 +101,7 @@ jobs:
       - deploy:
           name: deploy to S3
           command: |
-            aws s3 sync ~/christianrebelsky.com/public s3://$STAGE_BUCKET_NAME/ --delete --cache-control max-age=0,no-cache,no-store,must-revalidate --acl public-read
+            aws --region eu-central-1 --output json s3 sync ~/christianrebelsky.com/public s3://$STAGE_BUCKET_NAME/ --delete --cache-control max-age=0,no-cache,no-store,must-revalidate --acl public-read
 workflows:
   version: 2
   build_deploy:
