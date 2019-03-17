@@ -47,7 +47,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths: .
-  app_deployment:
+  app_deployment_stage:
     docker:
       - image: circleci/node:latest
     working_directory: ~/christianrebelsky.com
@@ -64,7 +64,7 @@ jobs:
           name: deploy to DO server
           command: |
             scp -o StrictHostKeyChecking=no -r ~/christianrebelsky.com/public $DROPLET_USER@$DROPLET_IP:/var/www/christianrebelsky-stage/
-  asset_deployment:
+  asset_deployment_stage:
     docker:
       - image: circleci/node:latest
     working_directory: ~/christianrebelsky.com
@@ -77,12 +77,31 @@ jobs:
             sudo apt-get install -y python-pip
             sudo apt-get install python2.7-dev
             sudo pip install awscli
-            aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-            aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+            aws configure set aws_access_key_id $DO_ACCESS_KEY_ID
+            aws configure set aws_secret_access_key $DO_SECRET_ACCESS_KEY
       - deploy:
           name: deploy to DO space
           command: |
             aws --endpoint-url $DO_SPACES_ENDPOINT --region $DO_SPACES_REGION --output json s3 sync ~/christianrebelsky.com/public/icons s3://cr-asset-space/test --delete --acl public-read
+  s3_deployment_stage:
+    docker:
+      - image: circleci/node:latest
+    working_directory: ~/christianrebelsky.com
+    steps:
+      - attach_workspace:
+          at: ~/christianrebelsky.com
+      - run:
+          name: Install aws cli
+          command: |
+            sudo apt-get install -y python-pip
+            sudo apt-get install python2.7-dev
+            sudo pip install awscli
+            aws configure set aws_access_key_id $STAGE_ACCESS_KEY_ID
+            aws configure set aws_secret_access_key $STAGE_SECRET_ACCESS_KEY
+      - deploy:
+          name: deploy to S3
+          command: |
+            aws s3 sync ~/christianrebelsky.com/public s3://$STAGE_BUCKET_NAME/ --delete --cache-control max-age=0,no-cache,no-store,must-revalidate --acl public-read
 workflows:
   version: 2
   build_deploy:
@@ -94,10 +113,18 @@ workflows:
       - build:
           requires:
             - checkout_code
-      - app_deployment:
+      - app_deployment_stage:
           requires:
-           - check_vulnerabilities
-           - build
-      - asset_deployment:
+            - check_vulnerabilities
+            - build
+            filters:
+              branches:
+                ignore:
+                  - master
+      - asset_deployment_stage:
           requires:
-            - app_deployment
+              - app_deployment
+              filters:
+                branches:
+                  ignore:
+                    - master
