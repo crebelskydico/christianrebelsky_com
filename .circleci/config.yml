@@ -121,6 +121,14 @@ workflows:
               branches:
                 ignore:
                   - master
+      - s3_deployment_stage:
+          requires:
+            - check_vulnerabilities
+            - build
+            filters:
+              branches:
+                ignore:
+                  - master
       - asset_deployment_stage:
           requires:
               - app_deployment
