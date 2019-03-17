@@ -93,15 +93,13 @@ jobs:
       - run:
           name: Install aws cli
           command: |
-            sudo apt-get install -y python-pip
-            sudo apt-get install python2.7-dev
-            sudo pip install awscli
+            apk add --update python python-dev py-pip build-base
+            pip install awscli
             aws configure set aws_access_key_id $STAGE_ACCESS_KEY_ID
             aws configure set aws_secret_access_key $STAGE_SECRET_ACCESS_KEY
       - deploy:
           name: deploy to S3
-          command: |
-            aws --region eu-central-1 --output json s3 sync ~/christianrebelsky.com/public s3://$STAGE_BUCKET_NAME/ --delete --cache-control max-age=0,no-cache,no-store,must-revalidate --acl public-read
+          command: 'aws s3 sync ~/christianrebelsky.com/public s3://$STAGE_BUCKET_NAME/ --region eu-central-1 --delete --acl public-read'
 workflows:
   version: 2
   build_deploy:
