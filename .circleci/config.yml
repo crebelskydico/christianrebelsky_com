@@ -85,21 +85,21 @@ jobs:
             aws --endpoint-url $DO_SPACES_ENDPOINT --region $DO_SPACES_REGION --output json s3 sync ~/christianrebelsky.com/public/icons s3://cr-asset-space/test --delete --acl public-read
   s3_deployment_stage:
     docker:
-      - image: circleci/node:latest
+      - image: garland/aws-cli-docker
     working_directory: ~/christianrebelsky.com
     steps:
       - attach_workspace:
           at: ~/christianrebelsky.com
       - run:
-          name: Install aws cli
+          name: configure aws profile
           command: |
-            apk add --update python python-dev py-pip build-base
-            pip install awscli
-            aws configure set aws_access_key_id $STAGE_ACCESS_KEY_ID
-            aws configure set aws_secret_access_key $STAGE_SECRET_ACCESS_KEY
+            aws configure --profile stage set aws_access_key_id $ACCESS_KEY_ID
+            aws configure --profile stage set aws_secret_access_key $STAGE_SECRET_ACCESS_KEY
+            aws configure --profile stage set region eu-central-1
+            aws configure --profile stage list
       - deploy:
-          name: deploy to S3
-          command: 'aws s3 sync ~/christianrebelsky.com/public s3://$STAGE_BUCKET_NAME/ --region eu-central-1 --delete --acl public-read'
+          name: deploy to S3 stage bucket
+          command: 'aws s3 sync ~/christianrebelsky.com/public s3://$STAGE_BUCKET_NAME/ --delete --acl public-read'
 workflows:
   version: 2
   build_deploy:
