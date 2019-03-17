@@ -117,22 +117,22 @@ workflows:
           requires:
             - check_vulnerabilities
             - build
-            filters:
-              branches:
-                ignore:
-                  - master
+          filters:
+            branches:
+              ignore:
+                - master
       - s3_deployment_stage:
           requires:
             - check_vulnerabilities
             - build
-            filters:
-              branches:
-                ignore:
-                  - master
+          filters:
+            branches:
+              ignore:
+                - master
       - asset_deployment_stage:
           requires:
-              - app_deployment
-              filters:
-                branches:
-                  ignore:
-                    - master
+            - app_deployment_stage
+          filters:
+            branches:
+              ignore:
+                - master
