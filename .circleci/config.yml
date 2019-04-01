@@ -99,8 +99,8 @@ jobs:
       - deploy:
           name: deploy to S3 stage bucket
           command: |
-          aws s3 sync ~/christianrebelsky.com/public s3://$BUCKET_NAME/$STAGE_FOLDER/ --profile stage --delete --cache-control max-age=31536000
-          aws cloudfront create-invalidation --distribution-id $STAGE_DISTRIBUTION_ID --paths /stage/*
+          'aws s3 sync ~/christianrebelsky.com/public s3://$BUCKET_NAME/$STAGE_FOLDER/ --profile stage --delete --cache-control max-age=31536000'
+          'aws cloudfront create-invalidation --distribution-id $STAGE_DISTRIBUTION_ID --paths /stage/*'
 workflows:
   version: 2
   build_deploy:
