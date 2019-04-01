@@ -99,8 +99,7 @@ jobs:
             aws configure --profile stage list
       - deploy:
           name: deploy to S3 stage bucket
-          command: 'aws s3 sync ~/christianrebelsky.com/public s3://$STAGE_BUCKET_NAME/ --profile stage --delete --acl
-          public-read'
+          command: 'aws s3 sync ~/christianrebelsky.com/public s3://$BUCKET_NAME/$STAGE_FOLDER/ --profile stage --delete --cache-control max-age=31536000 --acl public-read'
 workflows:
   version: 2
   build_deploy:
