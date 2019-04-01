@@ -47,42 +47,6 @@ jobs:
       - persist_to_workspace:
           root: .
           paths: .
-  app_deployment_stage:
-    docker:
-      - image: circleci/node:latest
-    working_directory: ~/christianrebelsky.com
-    steps:
-      - attach_workspace:
-          at: ~/christianrebelsky.com
-      - run:  echo 'deploying branch'
-      - add_ssh_keys
-      - run:
-          name: add key to known hosts
-          command: |
-            ssh-keyscan $DROPLET_IP >> ~/.ssh/known_hosts
-      - deploy:
-          name: deploy to DO server
-          command: |
-            scp -o StrictHostKeyChecking=no -r ~/christianrebelsky.com/public $DROPLET_USER@$DROPLET_IP:/var/www/christianrebelsky-stage/
-  asset_deployment_stage:
-    docker:
-      - image: circleci/node:latest
-    working_directory: ~/christianrebelsky.com
-    steps:
-      - attach_workspace:
-          at: ~/christianrebelsky.com
-      - run:
-          name: Install aws cli
-          command: |
-            sudo apt-get install -y python-pip
-            sudo apt-get install python2.7-dev
-            sudo pip install awscli
-            aws configure set aws_access_key_id $DO_ACCESS_KEY_ID
-            aws configure set aws_secret_access_key $DO_SECRET_ACCESS_KEY
-      - deploy:
-          name: deploy to DO space
-          command: |
-            aws --endpoint-url $DO_SPACES_ENDPOINT --region $DO_SPACES_REGION --output json s3 sync ~/christianrebelsky.com/public/icons s3://cr-asset-space/test --delete --acl public-read
   s3_deployment:
     docker:
       - image: garland/aws-cli-docker
@@ -112,25 +76,10 @@ workflows:
       - build:
           requires:
             - checkout_code
-      - app_deployment_stage:
+      - s3_deployment:
           requires:
             - check_vulnerabilities
             - build
-          filters:
-            branches:
-              ignore:
-                - master
-      - s3_deployment_stage:
-          requires:
-            - check_vulnerabilities
-            - build
-          filters:
-            branches:
-              ignore:
-                - master
-      - asset_deployment_stage:
-          requires:
-            - app_deployment_stage
           filters:
             branches:
               ignore:
