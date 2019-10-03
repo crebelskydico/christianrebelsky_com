@@ -1,31 +1,39 @@
-const siteConfig = require('./site-config');
-
 module.exports = {
   siteMetadata: {
-    ...siteConfig,
+    title: 'Christian Rebelsky - Front-End developer based in Hamburg',
+    description: 'Freelance front-end developer based in Hamburg, Germany.',
+    author: 'Christian Rebelsky',
   },
   plugins: [
+    'gatsby-plugin-emotion',
     'gatsby-plugin-react-helmet',
-    'gatsby-plugin-sitemap',
-    'gatsby-plugin-offline',
-    'gatsby-transformer-json',
-    'gatsby-transformer-remark',
-    'gatsby-plugin-eslint',
     {
-      resolve: 'gatsby-source-filesystem',
+      resolve: 'gatsby-plugin-manifest',
       options: {
-        name: 'content',
-        path: `${__dirname}/src/content`,
+        name: 'Christian Rebelsk',
+        short_name: 'christianrebelsky',
+        description: 'Freelance front-end developer based in Hamburg, Germany.',
+        start_url: '/',
+        background_color: '#404d56',
+        theme_color: '#404d56',
+        display: 'minimal-ui',
+        icon: 'src/assets/svg/logo.svg',
+        include_favicon: false,
       },
     },
-    'gatsby-plugin-sharp',
-    'gatsby-transformer-sharp',
-    'gatsby-plugin-webpack-size',
+    'gatsby-plugin-offline',
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [`Raleway:100`],
+        display: 'swap',
+      },
+    },
     {
       resolve: 'gatsby-plugin-react-svg',
       options: {
         rule: {
-          include: /images/,
+          include: /assets\/svg/, // See below to configure properly
         },
       },
     },
