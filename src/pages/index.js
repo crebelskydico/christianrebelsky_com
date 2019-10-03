@@ -6,10 +6,12 @@ import Logo from '../assets/svg/logo.svg';
 const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
-    <section className="logo">
-      <Logo />
+    <section className="home">
+      <section className="logo">
+        <Logo />
+      </section>
+      <h2>Coming Soon</h2>
     </section>
-    <h2>Coming Soon</h2>
   </Layout>
 );
 

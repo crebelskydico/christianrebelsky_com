@@ -49,12 +49,42 @@ const Layout = ({ children }) => {
             }
           }
           .page,
-          .page main {
+          .page main .home,
+          .page main .imprint,
+          .page main .data-privacy {
             display: grid;
             grid-template-columns: 1fr;
             grid-template-rows: auto auto;
             grid-gap: 50px;
             min-height: 100%;
+          }
+
+          .page main .imprint,
+          .page main .data-privacy {
+            grid-template-rows: 50px 100px 1fr;
+            grid-template-columns: 20vw 1fr 20vw;
+            h2,
+            h3,
+            h4,
+            p {
+              color: #c3e4ec;
+            }
+            .backlink {
+              grid-column: 2/3;
+              grid-row: 1/2;
+              align-self: center;
+              font-size: 1em;
+            }
+            h2 {
+              grid-column: 2/3;
+              grid-row: 2/3;
+              justify-self: left;
+              align-self: end;
+            }
+            .content {
+              grid-column: 2/3;
+              grid-row: 3/4;
+            }
           }
 
           h1,
@@ -87,6 +117,10 @@ const Layout = ({ children }) => {
             &:hover {
               text-decoration: underline;
             }
+          }
+
+          p > a {
+            font-size: 1em;
           }
 
           .logo {
