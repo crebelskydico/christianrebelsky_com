@@ -35,6 +35,30 @@ jobs:
           else
             yarn validate:dependencies || true
           fi
+  lint:
+    docker:
+      - image: circleci/node:latest
+    working_directory: ~/christianrebelsky.com
+    steps:
+      - attach_workspace:
+      at: ~/christianrebelsky.com
+            - run: yarn install
+            - run: yarn lint
+            - persist_to_workspace:
+      root: .
+      paths: .
+  test:
+    docker:
+      - image: circleci/node:latest
+    working_directory: ~/christianrebelsky.com
+    steps:
+      - attach_workspace:
+      at: ~/christianrebelsky.com
+            - run: yarn install
+            - run: yarn test -- --ci --bail
+            - persist_to_workspace:
+      root: .
+      paths: .
   build:
     docker:
       - image: circleci/node:latest
@@ -67,19 +91,29 @@ jobs:
             aws cloudfront create-invalidation --distribution-id $STAGE_DISTRIBUTION_ID --paths /stage/*
 workflows:
   version: 2
-  build_deploy:
+  build_deploy_stage:
     jobs:
       - checkout_code
       - check_vulnerabilities:
-          requires:
-            - checkout_code
+        requires:
+          - checkout_code
+      - lint:
+        requires:
+          - checkout_code
+          - check_vulnerabilities
+      - test:
+        requires:
+          - checkout_code
+          - check_vulnerabilities
       - build:
-          requires:
-            - checkout_code
+        requires:
+          - lint
+          - test
+          - checkout_code
       - s3_deployment:
-          requires:
-            - check_vulnerabilities
-            - build
+        requires:
+          - check_vulnerabilities
+          - build
           filters:
             branches:
               ignore:

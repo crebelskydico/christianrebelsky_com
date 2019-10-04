@@ -10,7 +10,7 @@ const IndexPage = () => (
       <section className="logo">
         <Logo />
       </section>
-      <h2>Coming Soon</h2>
+      <h2 data-testid="hero-title">Coming Soon</h2>
     </section>
   </Layout>
 );

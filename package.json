@@ -20,7 +20,11 @@
     "react-helmet": "^5.2.1"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^4.1.0",
+    "@testing-library/react": "^9.3.0",
     "babel-eslint": "^10.0.3",
+    "babel-jest": "^24.9.0",
+    "babel-preset-gatsby": "^0.2.17",
     "eslint": "^6.5.1",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.3.0",
@@ -28,7 +32,12 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.15.1",
-    "prettier": "^1.18.2"
+    "husky": "^3.0.8",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^24.9.0",
+    "lint-staged": "^9.4.1",
+    "prettier": "^1.18.2",
+    "react-test-renderer": "^16.10.2"
   },
   "keywords": [
     "gatsby",
@@ -42,7 +51,21 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "lint": "eslint --ignore-path .eslintignore --color src/ --ext .jsx,.js --quiet",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing \""
+    "test": "jest src --verbose",
+    "test:watch": "jest --watch --cache",
+    "test:cover": "jest src --no-cache --coverage"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx}": [
+      "npm run lint -- --fix",
+      "npm test -- --ci --bail --findRelatedTests",
+      "git add *.js"
+    ]
   },
   "repository": {
     "type": "git",

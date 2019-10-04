@@ -161,7 +161,7 @@ const Layout = ({ children }) => {
       <div className="page">
         <main>{children}</main>
         <footer>
-          <nav>
+          <nav data-testid="footer-nav">
             <ul>
               <li>
                 <Link to="/imprint">Imprint</Link>
