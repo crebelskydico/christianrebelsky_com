@@ -44,9 +44,6 @@ jobs:
           at: ~/christianrebelsky.com
       - run: yarn install
       - run: yarn lint
-      - persist_to_workspace:
-          root: .
-          paths: .
   test:
     docker:
       - image: circleci/node:latest
@@ -56,9 +53,6 @@ jobs:
           at: ~/christianrebelsky.com
       - run: yarn install
       - run: yarn test -- --ci --bail
-      - persist_to_workspace:
-          root: .
-          paths: .
   build:
     docker:
       - image: circleci/node:latest
@@ -107,9 +101,9 @@ workflows:
             - check_vulnerabilities
       - build:
           requires:
+            - checkout_code
             - lint
             - test
-            - checkout_code
       - s3_deployment:
           requires:
             - check_vulnerabilities
