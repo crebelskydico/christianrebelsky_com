@@ -164,10 +164,10 @@ const Layout = ({ children }) => {
           <nav data-testid="footer-nav">
             <ul>
               <li>
-                <Link to="/imprint">Imprint</Link>
+                <Link to="/imprint/">Imprint</Link>
               </li>
               <li>
-                <Link to="/data-privacy">Data Privacy</Link>
+                <Link to="/data-privacy/">Data Privacy</Link>
               </li>
             </ul>
           </nav>

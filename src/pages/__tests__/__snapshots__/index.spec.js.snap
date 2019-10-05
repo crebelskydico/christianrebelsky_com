@@ -27,14 +27,14 @@ exports[`Homepage renders correctly 1`] = `
       <ul>
         <li>
           <a
-            href="/imprint"
+            href="/imprint/"
           >
             Imprint
           </a>
         </li>
         <li>
           <a
-            href="/data-privacy"
+            href="/data-privacy/"
           >
             Data Privacy
           </a>
