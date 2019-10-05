@@ -33,7 +33,6 @@ const Layout = ({ children }) => {
             font-family: Helvetica, Arial, sans-serif;
             font-size: 14px;
             line-height: 1.4;
-            height: 100%;
 
             @media (min-width: calc(550px + 10vw)) {
               font-size: 18px;
@@ -48,42 +47,36 @@ const Layout = ({ children }) => {
               height: 100%;
             }
           }
-          .page,
-          .page main .home,
-          .page main .imprint,
-          .page main .data-privacy {
-            display: grid;
-            grid-template-columns: 1fr;
-            grid-template-rows: auto auto;
-            grid-gap: 50px;
-            min-height: 100%;
+          .page {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            padding: 20px 20px 0;
+
+            .logo {
+              margin-top: 60px;
+            }
+
+            h2 {
+              text-align: center;
+            }
           }
 
           .page main .imprint,
           .page main .data-privacy {
-            grid-template-rows: 50px 100px 1fr;
-            grid-template-columns: 20vw 1fr 20vw;
             h2,
             h3,
             h4,
             p {
               color: #c3e4ec;
-            }
-            .backlink {
-              grid-column: 2/3;
-              grid-row: 1/2;
-              align-self: center;
-              font-size: 1em;
+              text-align: left;
+              word-break: break-word;
             }
             h2 {
-              grid-column: 2/3;
-              grid-row: 2/3;
-              justify-self: left;
-              align-self: end;
+              font-size: 1.75rem;
             }
-            .content {
-              grid-column: 2/3;
-              grid-row: 3/4;
+            .backlink {
+              font-size: 1em;
             }
           }
 
@@ -102,11 +95,8 @@ const Layout = ({ children }) => {
           }
 
           h2 {
-            font-size: 3.25rem;
+            font-size: 2.75rem;
             font-weight: 100;
-            grid-row: 2/3;
-            justify-self: center;
-            align-self: start;
           }
 
           a {
@@ -122,21 +112,21 @@ const Layout = ({ children }) => {
           p > a {
             font-size: 1em;
           }
-
-          .logo {
-            grid-row: 1/2;
-            justify-self: center;
-            align-self: end;
+          main {
+            flex: 1 0 auto;
           }
 
           footer {
-            justify-self: center;
-            align-self: self-end;
-            grid-row: 2/3;
             margin-bottom: 30px;
-
+            flex-shrink: 0;
+            nav {
+              padding: 0;
+              text-align: center;
+            }
             ul {
+              display: inline-block;
               list-style-type: none;
+              padding: 0;
               li {
                 display: inline-block;
                 margin-right: 20px;
@@ -151,10 +141,21 @@ const Layout = ({ children }) => {
             width: 100%;
           }
 
-          @media only screen and (min-width: 500px) {
-          }
-
-          @media only screen and (min-width: 600px) {
+          @media only screen and (min-width: 768px) {
+            .page {
+              margin: 0 auto;
+              width: 80vw;
+            }
+            h2 {
+              font-size: 3.75rem;
+            }
+            .page main .imprint,
+            .page main .data-privacy {
+              h2 {
+                font-size: 2.75rem;
+                margin-bottom: 30px;
+              }
+            }
           }
         `}
       />
