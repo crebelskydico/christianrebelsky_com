@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotFound renders correctly 1`] = `
+<div
+  className="page"
+>
+  <main>
+    <h1>
+      NOT FOUND
+    </h1>
+    <p>
+      You just hit a route that doesn't exist... the sadness.
+    </p>
+  </main>
+  <footer>
+    <nav
+      data-testid="footer-nav"
+    >
+      <ul>
+        <li>
+          <a
+            href="/imprint/"
+          >
+            Imprint
+          </a>
+        </li>
+        <li>
+          <a
+            href="/data-privacy/"
+          >
+            Data Privacy
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </footer>
+</div>
+`;
