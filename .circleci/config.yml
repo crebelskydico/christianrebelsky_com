@@ -61,7 +61,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths: .
-  s3_deployment:
+  s3_deployment_stage:
     docker:
       - image: garland/aws-cli-docker
     working_directory: ~/christianrebelsky.com
@@ -71,19 +71,32 @@ jobs:
       - run:
           name: configure aws profile
           command: |
-            aws configure set aws_access_key_id $STAGE_AWS_ACCESS_KEY_ID
-            aws configure set aws_secret_access_key $STAGE_AWS_SECRET_ACCESS_KEY
+            aws configure set aws_access_key_id $CIRCLECI_AWS_ACCESS_KEY_ID
+            aws configure set aws_secret_access_key $CIRCLECI_AWS_SECRET_ACCESS_KEY
             aws configure set region eu-central-1
       - deploy:
           name: deploy to S3 stage bucket
           command: |
-              if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                aws s3 sync ~/christianrebelsky.com/public s3://BUCKET_NAME/ --delete --cache-control max-age=31536000
-                aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
-              else
-                aws s3 sync ~/christianrebelsky.com/public s3://$STAGE_BUCKET_NAME/ --delete --cache-control max-age=31536000
-                aws cloudfront create-invalidation --distribution-id $STAGE_DISTRIBUTION_ID --paths "/*"
-              fi
+            aws s3 sync ~/christianrebelsky.com/public s3://$STAGE_BUCKET_NAME/ --delete --cache-control max-age=31536000
+            aws cloudfront create-invalidation --distribution-id $STAGE_DISTRIBUTION_ID --paths "/*"
+  s3_deployment_prod:
+    docker:
+      - image: garland/aws-cli-docker
+    working_directory: ~/christianrebelsky.com
+    steps:
+      - attach_workspace:
+          at: ~/christianrebelsky.com
+      - run:
+          name: configure aws profile
+          command: |
+            aws configure set aws_access_key_id $CIRCLECI_AWS_ACCESS_KEY_ID
+            aws configure set aws_secret_access_key $CIRCLECI_AWS_SECRET_ACCESS_KEY
+            aws configure set region eu-central-1
+      - deploy:
+          name: deploy to S3 stage bucket
+          command: |
+            aws s3 sync ~/christianrebelsky.com/public s3://BUCKET_NAME/ --delete --cache-control max-age=31536000
+            aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
 workflows:
   version: 2
   build_deploy_stage:
@@ -105,7 +118,17 @@ workflows:
             - checkout_code
             - lint
             - test
-      - s3_deployment:
+      - s3_deployment_stage:
           requires:
             - check_vulnerabilities
             - build
+          filters:
+            branches:
+              ignore: master
+      - s3_deployment_prod:
+          requires:
+            - check_vulnerabilities
+            - build
+          filters:
+            branches:
+              only: master
