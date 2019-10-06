@@ -109,7 +109,3 @@ workflows:
           requires:
             - check_vulnerabilities
             - build
-          filters:
-            branches:
-              ignore:
-                - master
