@@ -1,40 +1,74 @@
 {
-  "name": "christianrebelsky-coming-soon",
-  "version": "0.0.1",
+  "name": "christianrebelsky.com",
+  "private": true,
+  "description": "private page christianrebelsky.com running on gatsby",
+  "version": "0.1.0",
+  "author": "Christian Rebelsky <christianrebelsky@gmail.com>",
   "dependencies": {
-    "grunt-cli": "^1.3.2",
-    "node-sass": "^4.9.0"
-  },
-  "scripts": {
-    "start": "grunt serve",
-    "build": "grunt build"
+    "@emotion/core": "^10.0.20",
+    "@emotion/styled": "^10.0.17",
+    "gatsby": "^2.15.28",
+    "gatsby-plugin-emotion": "^4.1.9",
+    "gatsby-plugin-google-fonts": "^1.0.1",
+    "gatsby-plugin-manifest": "^2.2.20",
+    "gatsby-plugin-offline": "^3.0.11",
+    "gatsby-plugin-react-helmet": "^3.1.10",
+    "gatsby-plugin-react-svg": "^2.1.2",
+    "prop-types": "^15.7.2",
+    "react": "^16.10.1",
+    "react-dom": "^16.10.1",
+    "react-helmet": "^5.2.1"
   },
   "devDependencies": {
-    "grunt": "0.4.1",
-    "grunt-autoprefixer": "~0.5.0",
-    "grunt-bower-install": "~0.7.0",
-    "grunt-concurrent": "~0.4.0",
-    "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-concat": "~0.3.0",
-    "grunt-contrib-connect": "~0.5.0",
-    "grunt-contrib-copy": "~0.4.1",
-    "grunt-contrib-cssmin": "~0.7.0",
-    "grunt-contrib-htmlmin": "~0.1.3",
-    "grunt-contrib-imagemin": "2.0.1",
-    "grunt-contrib-jshint": "~0.7.0",
-    "grunt-contrib-uglify": "~0.2.0",
-    "grunt-contrib-watch": "1.1.0",
-    "grunt-modernizr": "1.0.3",
-    "grunt-newer": "1.3.0",
-    "grunt-responsive-images": "1.10.1",
-    "grunt-sass": "2.1.0",
-    "grunt-svgmin": "~0.2.0",
-    "grunt-usemin": "~2.0.0",
-    "jshint-stylish": "~0.1.3",
-    "load-grunt-tasks": "latest",
-    "time-grunt": "~0.2.0"
+    "@testing-library/jest-dom": "^4.1.0",
+    "@testing-library/react": "^9.3.0",
+    "babel-eslint": "^10.0.3",
+    "babel-jest": "^24.9.0",
+    "babel-preset-gatsby": "^0.2.17",
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.15.1",
+    "husky": "^3.0.8",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^24.9.0",
+    "lint-staged": "^9.4.1",
+    "prettier": "^1.18.2",
+    "react-test-renderer": "^16.10.2"
   },
-  "engines": {
-    "node": ">=0.10.0"
+  "keywords": [
+    "gatsby",
+    "emotion"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
+    "start": "npm run develop",
+    "serve": "gatsby serve",
+    "lint": "eslint --ignore-path .eslintignore --color src/ --ext .jsx,.js --quiet",
+    "test": "jest src --verbose",
+    "test:watch": "jest --watch --cache",
+    "test:cover": "jest src --no-cache --coverage"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx}": [
+      "npm run lint -- --fix",
+      "npm test -- --ci --bail --findRelatedTests",
+      "git add *.js"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/crebelsky/christianrebelsky_com"
   }
 }

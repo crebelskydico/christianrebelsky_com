@@ -1,0 +1,119 @@
+version: 2
+jobs:
+  checkout_code:
+    docker:
+      - image: circleci/node:latest
+    working_directory: ~/christianrebelsky.com
+    steps:
+      - run: node -v
+      - checkout
+      - attach_workspace:
+          at: ~/christianrebelsky.com
+      - restore_cache:
+          keys:
+            - yarn-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - yarn-cache-{{ .Branch }}
+            - yarn-cache-
+      - run: yarn install
+      - save_cache:
+          key: yarn-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          paths: node_modules
+      - persist_to_workspace:
+          root: .
+          paths: .
+  check_vulnerabilities:
+    docker:
+      - image: circleci/node:latest
+    working_directory: ~/christianrebelsky.com
+    steps:
+      - attach_workspace:
+          at: ~/christianrebelsky.com
+      - run: yarn install
+      - run: |
+          if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            yarn validate:dependencies
+          else
+            yarn validate:dependencies || true
+          fi
+  lint:
+    docker:
+      - image: circleci/node:latest
+    working_directory: ~/christianrebelsky.com
+    steps:
+      - attach_workspace:
+          at: ~/christianrebelsky.com
+      - run: yarn install
+      - run: yarn lint
+  test:
+    docker:
+      - image: circleci/node:latest
+    working_directory: ~/christianrebelsky.com
+    steps:
+      - attach_workspace:
+          at: ~/christianrebelsky.com
+      - run: yarn install
+      - run: yarn test -- --ci --bail
+  build:
+    docker:
+      - image: circleci/node:latest
+    working_directory: ~/christianrebelsky.com
+    steps:
+      - attach_workspace:
+          at: ~/christianrebelsky.com
+      - run: yarn install
+      - run: yarn build
+      - persist_to_workspace:
+          root: .
+          paths: .
+  s3_deployment:
+    docker:
+      - image: garland/aws-cli-docker
+    working_directory: ~/christianrebelsky.com
+    steps:
+      - attach_workspace:
+          at: ~/christianrebelsky.com
+      - run:
+          name: configure aws profile
+          command: |
+            aws configure set aws_access_key_id $STAGE_AWS_ACCESS_KEY_ID
+            aws configure set aws_secret_access_key $STAGE_AWS_SECRET_ACCESS_KEY
+            aws configure set region eu-central-1
+      - deploy:
+          name: deploy to S3 stage bucket
+          command: |
+              if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                aws s3 sync ~/christianrebelsky.com/public s3://BUCKET_NAME/ --delete --cache-control max-age=31536000
+                aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
+              else
+                aws s3 sync ~/christianrebelsky.com/public s3://$STAGE_BUCKET_NAME/ --delete --cache-control max-age=31536000
+                aws cloudfront create-invalidation --distribution-id $STAGE_DISTRIBUTION_ID --paths "/*"
+              fi
+workflows:
+  version: 2
+  build_deploy_stage:
+    jobs:
+      - checkout_code
+      - check_vulnerabilities:
+          requires:
+            - checkout_code
+      - lint:
+          requires:
+            - checkout_code
+            - check_vulnerabilities
+      - test:
+          requires:
+            - checkout_code
+            - check_vulnerabilities
+      - build:
+          requires:
+            - checkout_code
+            - lint
+            - test
+      - s3_deployment:
+          requires:
+            - check_vulnerabilities
+            - build
+          filters:
+            branches:
+              ignore:
+                - master
