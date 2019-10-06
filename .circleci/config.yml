@@ -30,11 +30,7 @@ jobs:
           at: ~/christianrebelsky.com
       - run: yarn install
       - run: |
-          if [ "${CIRCLE_BRANCH}" == "master" ]; then
-            yarn validate:dependencies
-          else
-            yarn validate:dependencies || true
-          fi
+          yarn audit
   lint:
     docker:
       - image: circleci/node:latest
@@ -81,13 +77,13 @@ jobs:
       - deploy:
           name: deploy to S3 stage bucket
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              aws s3 sync ~/christianrebelsky.com/public s3://BUCKET_NAME --delete --cache-control max-age=31536000
-              aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
-            else
-              aws s3 sync ~/christianrebelsky.com/public s3://$STAGE_BUCKET_NAME --delete --cache-control max-age=31536000
-              aws cloudfront create-invalidation --distribution-id $STAGE_DISTRIBUTION_ID --paths "/*"
-            fi
+              if [ "${CIRCLE_BRANCH}" == "master" ]; then
+                aws s3 sync ~/christianrebelsky.com/public s3://BUCKET_NAME/ --delete --cache-control max-age=31536000
+                aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
+              else
+                aws s3 sync ~/christianrebelsky.com/public s3://$STAGE_BUCKET_NAME/ --delete --cache-control max-age=31536000
+                aws cloudfront create-invalidation --distribution-id $STAGE_DISTRIBUTION_ID --paths "/*"
+              fi
 workflows:
   version: 2
   build_deploy_stage:
@@ -113,7 +109,3 @@ workflows:
           requires:
             - check_vulnerabilities
             - build
-          filters:
-            branches:
-              ignore:
-                - master
