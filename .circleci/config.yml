@@ -30,7 +30,7 @@ jobs:
           at: ~/christianrebelsky.com
       - run: yarn install
       - run: |
-          yarn validate:dependencies
+          yarn audit
   lint:
     docker:
       - image: circleci/node:latest
