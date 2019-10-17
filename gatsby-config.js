@@ -10,7 +10,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
-        name: 'Christian Rebelsk',
+        name: 'Christian Rebelsky',
         short_name: 'christianrebelsky',
         description: 'Freelance front-end developer based in Hamburg, Germany.',
         start_url: '/',
