@@ -132,11 +132,17 @@ workflows:
             - checkout_code
             - lint
             - test
+          filters:
+            branches:
+              ignore: master
       - build:
           requires:
             - checkout_code
             - lint
             - test
+          filters:
+            branches:
+              only: master
       - s3_deployment_stage:
           requires:
             - check_vulnerabilities
