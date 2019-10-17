@@ -37,5 +37,15 @@ module.exports = {
         },
       },
     },
+    {
+      resolve: 'gatsby-plugin-google-analytics',
+      options: {
+        trackingId:
+          process.env.TARGET_ENV === 'prod' ? 'UA-45983054-3' : 'UA-45983054-6',
+        head: false,
+        anonymize: true,
+        respectDNT: true,
+      },
+    },
   ],
 };
