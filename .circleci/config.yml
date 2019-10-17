@@ -49,6 +49,18 @@ jobs:
           at: ~/christianrebelsky.com
       - run: yarn install
       - run: yarn test -- --ci --bail
+  build_stage:
+    docker:
+      - image: circleci/node:latest
+    working_directory: ~/christianrebelsky.com
+    steps:
+      - attach_workspace:
+          at: ~/christianrebelsky.com
+      - run: yarn install
+      - run: TARGET_ENV=dev yarn build
+      - persist_to_workspace:
+          root: .
+          paths: .
   build:
     docker:
       - image: circleci/node:latest
@@ -57,7 +69,7 @@ jobs:
       - attach_workspace:
           at: ~/christianrebelsky.com
       - run: yarn install
-      - run: yarn build
+      - run: TARGET_ENV=prod yarn build
       - persist_to_workspace:
           root: .
           paths: .
@@ -79,6 +91,7 @@ jobs:
           command: |
             aws s3 sync ~/christianrebelsky.com/public s3://$STAGE_BUCKET_NAME/ --delete --cache-control max-age=31536000
             aws cloudfront create-invalidation --distribution-id $STAGE_DISTRIBUTION_ID --paths "/*"
+            aws cloudfront create-invalidation --distribution-id $STAGE_DISTRIBUTION_ID_DE --paths "/*"
   s3_deployment_prod:
     docker:
       - image: garland/aws-cli-docker
@@ -97,6 +110,7 @@ jobs:
           command: |
             aws s3 sync ~/christianrebelsky.com/public s3://BUCKET_NAME/ --delete --cache-control max-age=31536000
             aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
+            aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID_DE --paths "/*"
 workflows:
   version: 2
   build_deploy_stage:
@@ -113,15 +127,26 @@ workflows:
           requires:
             - checkout_code
             - check_vulnerabilities
+      - build_stage:
+          requires:
+            - checkout_code
+            - lint
+            - test
+          filters:
+            branches:
+              ignore: master
       - build:
           requires:
             - checkout_code
             - lint
             - test
+          filters:
+            branches:
+              only: master
       - s3_deployment_stage:
           requires:
             - check_vulnerabilities
-            - build
+            - build_stage
           filters:
             branches:
               ignore: master

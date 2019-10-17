@@ -10,7 +10,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-manifest',
       options: {
-        name: 'Christian Rebelsk',
+        name: 'Christian Rebelsky',
         short_name: 'christianrebelsky',
         description: 'Freelance front-end developer based in Hamburg, Germany.',
         start_url: '/',
@@ -35,6 +35,16 @@ module.exports = {
         rule: {
           include: /assets\/svg/, // See below to configure properly
         },
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-google-analytics',
+      options: {
+        trackingId:
+          process.env.TARGET_ENV === 'prod' ? 'UA-45983054-3' : 'UA-45983054-6',
+        head: false,
+        anonymize: true,
+        respectDNT: true,
       },
     },
   ],
