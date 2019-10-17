@@ -2,7 +2,7 @@
   "name": "christianrebelsky.com",
   "private": true,
   "description": "private page christianrebelsky.com running on gatsby",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "Christian Rebelsky <christianrebelsky@gmail.com>",
   "dependencies": {
     "@emotion/core": "^10.0.20",
