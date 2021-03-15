@@ -73,44 +73,44 @@ jobs:
       - persist_to_workspace:
           root: .
           paths: .
-  s3_deployment_stage:
-    docker:
-      - image: garland/aws-cli-docker
-    working_directory: ~/christianrebelsky.com
-    steps:
-      - attach_workspace:
-          at: ~/christianrebelsky.com
-      - run:
-          name: configure aws profile
-          command: |
-            aws configure set aws_access_key_id $CIRCLECI_AWS_ACCESS_KEY_ID
-            aws configure set aws_secret_access_key $CIRCLECI_AWS_SECRET_ACCESS_KEY
-            aws configure set region eu-central-1
-      - deploy:
-          name: deploy to S3 stage bucket
-          command: |
-            aws s3 sync ~/christianrebelsky.com/public s3://$STAGE_BUCKET_NAME/ --delete --cache-control max-age=31536000
-            aws cloudfront create-invalidation --distribution-id $STAGE_DISTRIBUTION_ID --paths "/*"
-            aws cloudfront create-invalidation --distribution-id $STAGE_DISTRIBUTION_ID_DE --paths "/*"
-  s3_deployment_prod:
-    docker:
-      - image: garland/aws-cli-docker
-    working_directory: ~/christianrebelsky.com
-    steps:
-      - attach_workspace:
-          at: ~/christianrebelsky.com
-      - run:
-          name: configure aws profile
-          command: |
-            aws configure set aws_access_key_id $CIRCLECI_AWS_ACCESS_KEY_ID
-            aws configure set aws_secret_access_key $CIRCLECI_AWS_SECRET_ACCESS_KEY
-            aws configure set region eu-central-1
-      - deploy:
-          name: deploy to S3 stage bucket
-          command: |
-            aws s3 sync ~/christianrebelsky.com/public s3://BUCKET_NAME/ --delete --cache-control max-age=31536000
-            aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
-            aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID_DE --paths "/*"
+  # s3_deployment_stage:
+  #   docker:
+  #     - image: garland/aws-cli-docker
+  #   working_directory: ~/christianrebelsky.com
+  #   steps:
+  #     - attach_workspace:
+  #         at: ~/christianrebelsky.com
+  #     - run:
+  #         name: configure aws profile
+  #         command: |
+  #           aws configure set aws_access_key_id $CIRCLECI_AWS_ACCESS_KEY_ID
+  #           aws configure set aws_secret_access_key $CIRCLECI_AWS_SECRET_ACCESS_KEY
+  #           aws configure set region eu-central-1
+  #     - deploy:
+  #         name: deploy to S3 stage bucket
+  #         command: |
+  #           aws s3 sync ~/christianrebelsky.com/public s3://$STAGE_BUCKET_NAME/ --delete --cache-control max-age=31536000
+  #           aws cloudfront create-invalidation --distribution-id $STAGE_DISTRIBUTION_ID --paths "/*"
+  #           aws cloudfront create-invalidation --distribution-id $STAGE_DISTRIBUTION_ID_DE --paths "/*"
+  # s3_deployment_prod:
+  #   docker:
+  #     - image: garland/aws-cli-docker
+  #   working_directory: ~/christianrebelsky.com
+  #   steps:
+  #     - attach_workspace:
+  #         at: ~/christianrebelsky.com
+  #     - run:
+  #         name: configure aws profile
+  #         command: |
+  #           aws configure set aws_access_key_id $CIRCLECI_AWS_ACCESS_KEY_ID
+  #           aws configure set aws_secret_access_key $CIRCLECI_AWS_SECRET_ACCESS_KEY
+  #           aws configure set region eu-central-1
+  #     - deploy:
+  #         name: deploy to S3 stage bucket
+  #         command: |
+  #           aws s3 sync ~/christianrebelsky.com/public s3://BUCKET_NAME/ --delete --cache-control max-age=31536000
+  #           aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
+  #           aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID_DE --paths "/*"
 workflows:
   version: 2
   build_deploy_stage:
@@ -143,17 +143,17 @@ workflows:
           filters:
             branches:
               only: master
-      - s3_deployment_stage:
-          requires:
-            - check_vulnerabilities
-            - build_stage
-          filters:
-            branches:
-              ignore: master
-      - s3_deployment_prod:
-          requires:
-            - check_vulnerabilities
-            - build
-          filters:
-            branches:
-              only: master
+      # - s3_deployment_stage:
+      #     requires:
+      #       - check_vulnerabilities
+      #       - build_stage
+      #     filters:
+      #       branches:
+      #         ignore: master
+      # - s3_deployment_prod:
+      #     requires:
+      #       - check_vulnerabilities
+      #       - build
+      #     filters:
+      #       branches:
+      #         only: master

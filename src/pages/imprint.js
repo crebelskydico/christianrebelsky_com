@@ -16,14 +16,14 @@ const ImprintPage = () => (
         <p>
           Christian Rebelsky
           <br />
-          Rellinger Straße 74
+          Bahnhofstraße 9
           <br />
-          20257 Hamburg
+          68535 Edingen-Neckarhausen
         </p>
 
         <h3>Kontakt:</h3>
         <p>
-          Telefon: +49 40 22656493‬
+          Telefon: +49 173 5703971‬
           <br />
           E-Mail: contact@christianrebelsky.de
         </p>
