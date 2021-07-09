@@ -1,4 +1,3 @@
-src/assets/
-src/favicon.ico
-__snapshots__
-*.snap
+_old/
+.next/
+node_modules/
