@@ -6,7 +6,7 @@ export default function Imprint(): JSX.Element {
     <div className="grid grid-rows-content h-screen">
       <Header page="Impressum" variant="min" />
       <main className="grid grid-cols-1 mr-2 ml-2 lg:gap-4 row-start-2 lg:grid-cols-4">
-        <div className="col-start-1 col-end-4 self-start justify-self-center lg:col-start-2">
+        <div className="col-start-1 col-end-4 lg:col-start-2">
           <h2 className="text-2xl pb-4">Impressum</h2>
           <hr className="pb-4" />
           <section className="content">

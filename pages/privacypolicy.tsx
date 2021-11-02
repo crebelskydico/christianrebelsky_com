@@ -6,7 +6,7 @@ export default function PrivacyPolicy(): JSX.Element {
     <div className="grid grid-rows-content h-screen">
       <Header page="Datenschutz" variant="min" />
       <main className="grid grid-cols-1 mr-2 ml-2 lg:gap-4 row-start-2 lg:grid-cols-4">
-        <div className="col-start-1 col-end-4 self-start justify-self-center lg:col-start-2">
+        <div className="col-start-1 col-end-4 lg:col-start-2">
           <h2 className="text-2xl pb-4">Datenschutzerklärung</h2>
           <hr className="pb-4" />
           <section className="content">
@@ -159,13 +159,13 @@ export default function PrivacyPolicy(): JSX.Element {
               der Landesdatenschutzbeauftragte des Bundeslandes, in dem unser
               Unternehmen seinen Sitz hat. Eine Liste der
               Datenschutzbeauftragten sowie deren Kontaktdaten können folgendem
-              Link entnommen werden:
+              Link entnommen werden:<br />
               <a
                 href="https://www.bfdi.bund.de/DE/Infothek/Anschriften_Links/anschriften_links-node.html"
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                https://www.bfdi.bund.de/DE/Infothek/Anschriften_Links/anschriften_links-node.html
+                https://www.bfdi.bund.de/
               </a>
               .
             </p>
@@ -290,7 +290,7 @@ export default function PrivacyPolicy(): JSX.Element {
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                https://tools.google.com/dlpage/gaoptout?hl=de
+                https://tools.google.com/
               </a>
               .
             </p>
@@ -314,7 +314,7 @@ export default function PrivacyPolicy(): JSX.Element {
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                https://support.google.com/analytics/answer/6004245?hl=de
+                https://support.google.com/
               </a>
               .
             </p>
