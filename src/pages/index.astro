@@ -1,0 +1,19 @@
+---
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import Layout from '../layouts/index.astro'
+---
+
+<Layout page="Home">
+	<div class="grid grid-rows-4 h-screen">
+		<Header />
+		<main class="grid grid-cols-1 lg:grid-cols-3 lg:gap-4 row-start-3">
+			<div class="lg:col-start-2 lg:col-end-3 self-start justify-self-center">
+				<h1 class="text-primary font-sans font-normal text-3xl lg:text-5xl">
+					Coming Soon
+				</h1>
+			</div>
+		</main>
+		<Footer />
+	</div>
+</Layout>

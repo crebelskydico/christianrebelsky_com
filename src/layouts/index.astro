@@ -1,0 +1,19 @@
+---
+import '../assets/globals.css';
+const { page } = Astro.props;
+---
+
+<html lang="de">
+
+<head>
+    <meta charset="utf-8">
+    <title>{` ${page} | Christian Rebelsky - Senior Software Engineer@diconium`}</title>
+    <meta name="description" content="Christian Rebelsky - Senior Software Engineer@diconium">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <slot />
+</body>
+
+</html>
