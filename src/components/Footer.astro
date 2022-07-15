@@ -1,0 +1,16 @@
+---
+export interface IFooterMenuProps {
+    active: string;
+    variant: 'min' | 'max';
+}
+const { active } = Astro.props as IFooterMenuProps;
+---
+
+<footer class="row-start-4 justify-self-center self-end mb-8">
+    <menu class="footer-menu pb-5 pt-5 pl-0 pr-0">
+        <a href="/privacypolicy" class={`footer-menu-item pr-4 text-primary hover:underline ${active==='datenschutz'
+            ? 'underline' : '' }`} aria-current={`${active==='datenschutz' ? "page" : "false" }`}>Datenschutz</a>
+        <a href="/imprint" class={`footer-menu-item text-primary hover:underline ${active==='impressum' ? 'underline'
+            : '' }`} aria-current={`${active==='impressum' ? "page" : "false" }`}>Impressum</a>
+    </menu>
+</footer>

@@ -1,0 +1,16 @@
+---
+export interface IHeaderProps {
+    page: string;
+    variant: 'full' | 'min';
+}
+const { variant = 'full' } = Astro.props as IHeaderProps;
+---
+
+<header class={`grid grid-cols-3 gap-4 ${variant==='full' ? 'row-start-2' : 'row-start-1 mt-4' }`}>
+    <div class="col-start-2 col-end-3 place-self-center">
+        <a href="/">
+            <img src="/logo-light.svg" width={variant==='full' ? '200' : '100' } height={variant==='full' ? '200'
+                : '100' } alt="Christian Rebelsky Logo" />
+        </a>
+    </div>
+</header>
