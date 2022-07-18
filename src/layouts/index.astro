@@ -10,6 +10,20 @@ const { page } = Astro.props;
     <title>{` ${page} | Christian Rebelsky - Senior Software Engineer@diconium`}</title>
     <meta name="description" content="Christian Rebelsky - Senior Software Engineer@diconium">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-45983054-3"></script>
+    // disable ts for this line
+
+    <script>
+        //  @ts-ignore
+        window.dataLayer = window.dataLayer || [];
+        //  @ts-ignore
+        function gtag() { dataLayer.push(arguments); }
+        //  @ts-ignore
+        gtag('js', new Date());
+        //  @ts-ignore
+        gtag('config', 'UA-45983054-3');
+    </script>
 </head>
 
 <body>
