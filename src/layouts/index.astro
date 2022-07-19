@@ -10,8 +10,16 @@ const { page } = Astro.props;
     <title>{` ${page} | Christian Rebelsky - Senior Software Engineer@diconium`}</title>
     <meta name="description" content="Christian Rebelsky - Senior Software Engineer@diconium">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+</head>
+
+<body>
+    <slot />
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-45983054-3"></script>
+    <script defer src="https://www.googletagmanager.com/gtag/js?id=UA-45983054-3"></script>
     <script>
         //  @ts-ignore
         window.dataLayer = window.dataLayer || [];
@@ -20,12 +28,27 @@ const { page } = Astro.props;
         //  @ts-ignore
         gtag('js', new Date());
         //  @ts-ignore
-        gtag('config', 'UA-45983054-3');
+        gtag('config', 'UA-45983054-3', { 'anonymize_ip': true });
     </script>
-</head>
-
-<body>
-    <slot />
+    <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+    <script>
+        //  @ts-ignore
+        window.cookieconsent.initialise({
+            container: document.getElementById("content"),
+            palette: {
+                popup: { background: "#fff" },
+                button: { background: "#aa0000" },
+            },
+            revokable: true,
+            onStatusChange: function (status) {
+                console.log(this.hasConsented() ?
+                    'enable cookies' : 'disable cookies');
+            },
+            "content": {
+                "href": "https://www.christianrebelsky.de/privacypolicy/",
+            }
+        });
+    </script>
 </body>
 
 </html>
