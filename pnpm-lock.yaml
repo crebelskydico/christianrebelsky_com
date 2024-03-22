@@ -870,8 +870,8 @@ packages:
       typescript: 4.6.4
       unist-util-visit: 4.1.0
       vfile: 5.3.4
-      vite: 3.2.7
-      vitefu: 0.2.4(vite@3.2.7)
+      vite: 3.2.8
+      vitefu: 0.2.4(vite@3.2.8)
       yargs-parser: 21.0.1
       zod: 3.17.9
     transitivePeerDependencies:
@@ -2879,12 +2879,6 @@ packages:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
     dev: true
 
-  /nanoid@3.3.4:
-    resolution: {integrity: sha512-MqBkQh/OHTS2egovRtLk45wEyNXwF+cokD+1YPf9u5VfJiRdAiRwB2froX5Co9Rh20xs4siNPm8naNotSD6RBw==}
-    engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
-    hasBin: true
-    dev: true
-
   /nanoid@3.3.6:
     resolution: {integrity: sha512-BGcqMMJuToF7i1rt+2PWSNVnWIkGCU78jBG3RxO/bZlnZPK2Cmi2QaffxGO/2RvWi9sL+FAiRiXMgsyxQ1DIDA==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
@@ -3168,7 +3162,7 @@ packages:
     resolution: {integrity: sha512-E398TUmfAYFPBSdzgeieK2Y1+1cpdxJx8yXbK/m57nRhKSmk1GB2tO4lbLBtlkfPQTDKfe4Xqv1ASWPpayPEig==}
     engines: {node: ^10 || ^12 || >=14}
     dependencies:
-      nanoid: 3.3.4
+      nanoid: 3.3.6
       picocolors: 1.0.0
       source-map-js: 1.0.2
     dev: true
@@ -3916,8 +3910,8 @@ packages:
       vfile-message: 3.1.2
     dev: true
 
-  /vite@3.2.7:
-    resolution: {integrity: sha512-29pdXjk49xAP0QBr0xXqu2s5jiQIXNvE/xwd0vUizYT2Hzqe4BksNNoWllFVXJf4eLZ+UlVQmXfB4lWrc+t18g==}
+  /vite@3.2.8:
+    resolution: {integrity: sha512-EtQU16PLIJpAZol2cTLttNP1mX6L0SyI0pgQB1VOoWeQnMSvtiwovV3D6NcjN8CZQWWyESD2v5NGnpz5RvgOZA==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
@@ -3949,7 +3943,7 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitefu@0.2.4(vite@3.2.7):
+  /vitefu@0.2.4(vite@3.2.8):
     resolution: {integrity: sha512-fanAXjSaf9xXtOOeno8wZXIhgia+CZury481LsDaV++lSvcU2R9Ch2bPh3PYFyoHW+w9LqAeYRISVQjUIew14g==}
     peerDependencies:
       vite: ^3.0.0 || ^4.0.0
@@ -3957,7 +3951,7 @@ packages:
       vite:
         optional: true
     dependencies:
-      vite: 3.2.7
+      vite: 3.2.8
     dev: true
 
   /vscode-css-languageservice@6.0.1:
