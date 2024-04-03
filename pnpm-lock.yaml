@@ -870,8 +870,8 @@ packages:
       typescript: 4.6.4
       unist-util-visit: 4.1.0
       vfile: 5.3.4
-      vite: 3.2.8
-      vitefu: 0.2.4(vite@3.2.8)
+      vite: 3.2.10
+      vitefu: 0.2.4(vite@3.2.10)
       yargs-parser: 21.0.1
       zod: 3.17.9
     transitivePeerDependencies:
@@ -3910,8 +3910,8 @@ packages:
       vfile-message: 3.1.2
     dev: true
 
-  /vite@3.2.8:
-    resolution: {integrity: sha512-EtQU16PLIJpAZol2cTLttNP1mX6L0SyI0pgQB1VOoWeQnMSvtiwovV3D6NcjN8CZQWWyESD2v5NGnpz5RvgOZA==}
+  /vite@3.2.10:
+    resolution: {integrity: sha512-Dx3olBo/ODNiMVk/cA5Yft9Ws+snLOXrhLtrI3F4XLt4syz2Yg8fayZMWScPKoz12v5BUv7VEmQHnsfpY80fYw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
@@ -3943,7 +3943,7 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitefu@0.2.4(vite@3.2.8):
+  /vitefu@0.2.4(vite@3.2.10):
     resolution: {integrity: sha512-fanAXjSaf9xXtOOeno8wZXIhgia+CZury481LsDaV++lSvcU2R9Ch2bPh3PYFyoHW+w9LqAeYRISVQjUIew14g==}
     peerDependencies:
       vite: ^3.0.0 || ^4.0.0
@@ -3951,7 +3951,7 @@ packages:
       vite:
         optional: true
     dependencies:
-      vite: 3.2.8
+      vite: 3.2.10
     dev: true
 
   /vscode-css-languageservice@6.0.1:
