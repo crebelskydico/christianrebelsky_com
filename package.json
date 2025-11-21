@@ -3,14 +3,13 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "dev": "astro dev",
+    "preview": "astro preview",
+    "start": "astro dev"
   },
   "devDependencies": {
-    "@astrojs/tailwind": "^5.1.0",
-    "astro": "^5.15.9"
-  },
-  "packageManager": "pnpm@9.4.0+sha512.f549b8a52c9d2b8536762f99c0722205efc5af913e77835dbccc3b0b0b2ca9e7dc8022b78062c17291c48e88749c70ce88eb5a74f1fa8c4bf5e18bb46c8bd83a"
+    "@astrojs/tailwind": "^6.0.2",
+    "astro": "^5.16.0"
+  }
 }
