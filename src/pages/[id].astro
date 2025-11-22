@@ -1,0 +1,28 @@
+---
+import { getCollection, render } from 'astro:content'
+import Header from '@components/Header.astro'
+import Footer from '@components/Footer.astro'
+import Layout from '@layouts/index.astro'
+export async function getStaticPaths() {
+  const posts = await getCollection('meta')
+  return posts.map((post) => ({
+    params: { id: post.id },
+    props: { post },
+  }))
+}
+
+const { post } = Astro.props
+const { Content } = await render(post)
+// TODO: meta-header, format h, p, a, ul, li, etc.
+---
+
+<Layout page={post.id}>
+  <Header page={post.id} />
+  <main
+    class="col-span-1 md:col-span-10 md:col-start-5 md:col-end-9"
+  >
+    <h1>{post.data.title}</h1>
+    <Content />
+  </main>
+  <Footer active={post.id} variant="min" />
+</Layout>

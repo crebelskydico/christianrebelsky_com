@@ -17,6 +17,8 @@ const { page } = Astro.props
   </head>
 
   <body>
-    <slot />
+    <div class={`min-h-screen h-screen grid grid-rows-content grid-cols-1 md:grid-cols-12 gap-4`}>
+      <slot />
+    </div>
   </body>
 </html>
