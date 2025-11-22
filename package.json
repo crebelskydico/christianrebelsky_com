@@ -3,13 +3,21 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "build": "astro build",
+    "build": "astro check && astro build",
     "dev": "astro dev",
     "preview": "astro preview",
     "start": "astro dev"
   },
+  "dependencies": {
+    "@astrojs/check": "^0.9.5",
+    "@astrojs/vercel": "^9.0.1",
+    "@tailwindcss/vite": "^4.1.17",
+    "tailwindcss": "^4.1.17",
+    "typescript": "^5.9.3"
+  },
   "devDependencies": {
-    "@astrojs/tailwind": "^6.0.2",
-    "astro": "^5.16.0"
+    "astro": "^5.16.0",
+    "prettier": "3.6.2",
+    "prettier-plugin-astro": "0.14.1"
   }
 }

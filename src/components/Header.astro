@@ -1,16 +1,19 @@
 ---
 export interface IHeaderProps {
-    page: string;
-    variant: 'full' | 'min';
+  page: string
 }
-const { variant = 'full' } = Astro.props as IHeaderProps;
+const { page } = Astro.props as IHeaderProps
 ---
 
-<header class={`grid grid-cols-3 gap-4 ${variant==='full' ? 'row-start-2' : 'row-start-1 mt-4' }`}>
-    <div class="col-start-2 col-end-3 place-self-center">
-        <a href="/">
-            <img src="/logo-light.svg" width={variant==='full' ? '200' : '100' } height={variant==='full' ? '200'
-                : '100' } alt="Christian Rebelsky Logo" />
-        </a>
-    </div>
+<header
+  class={`col-span-full grid place-items-center h-[232px] max-h-[232px]py-4 ${page === 'Home' && 'hidden'}`}
+>
+  <a href="/" class={`h-full flex items-center justify-center `}>
+    <img
+      src="/logo-light.svg"
+      width="200"
+      height="200"
+      alt="Christian Rebelsky Logo"
+    />
+  </a>
 </header>

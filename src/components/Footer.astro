@@ -1,16 +1,29 @@
 ---
 export interface IFooterMenuProps {
-    active: string;
-    variant: 'min' | 'max';
+  active: string
+  variant: 'min' | 'max'
 }
-const { active } = Astro.props as IFooterMenuProps;
+const { active } = Astro.props as IFooterMenuProps
+
+// give it some collection to parse from
 ---
 
-<footer class="row-start-4 justify-self-center self-end mb-8">
-    <menu class="footer-menu pb-5 pt-5 pl-0 pr-0">
-        <a href="/privacypolicy" class={`footer-menu-item pr-4 text-primary hover:underline ${active==='datenschutz'
-            ? 'underline' : '' }`} aria-current={`${active==='datenschutz' ? "page" : "false" }`}>Datenschutz</a>
-        <a href="/imprint" class={`footer-menu-item text-primary hover:underline ${active==='impressum' ? 'underline'
-            : '' }`} aria-current={`${active==='impressum' ? "page" : "false" }`}>Impressum</a>
-    </menu>
+<footer class="col-span-full grid place-items-center row-start-3 row-end-4 py-4">
+  <menu>
+    <a
+      href="/privacypolicy"
+      class={`footer-menu-item pr-4 text-primary hover:underline ${
+        active === 'datenschutz' ? 'underline' : ''
+      }`}
+      aria-current={`${active === 'datenschutz' ? 'page' : 'false'}`}
+      >Datenschutz</a
+    >
+    <a
+      href="/imprint"
+      class={`footer-menu-item text-primary hover:underline ${
+        active === 'impressum' ? 'underline' : ''
+      }`}
+      aria-current={`${active === 'impressum' ? 'page' : 'false'}`}>Impressum</a
+    >
+  </menu>
 </footer>

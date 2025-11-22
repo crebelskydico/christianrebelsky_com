@@ -1,19 +1,26 @@
 ---
-import Header from '../components/Header.astro'
-import Footer from '../components/Footer.astro'
-import Layout from '../layouts/index.astro'
+import Header from '@components/Header.astro'
+import Footer from '@components/Footer.astro'
+import Layout from '@layouts/index.astro'
 ---
 
 <Layout page="Home">
-	<div class="grid grid-rows-4 h-screen">
-		<Header />
-		<main class="grid grid-cols-1 lg:grid-cols-3 lg:gap-4 row-start-3">
-			<div class="lg:col-start-2 lg:col-end-3 self-start justify-self-center">
-				<h1 class="text-primary font-sans font-normal text-3xl lg:text-5xl">
-					Coming Soon
-				</h1>
-			</div>
-		</main>
-		<Footer />
-	</div>
+  <Header page="Home" />
+  <main
+    class="col-span-1 md:col-span-10 md:col-start-3 md:col-end-11 grid place-items-center"
+  >
+    <a
+      href="/"
+      class={`h-full flex items-center justify-center py-12`}
+    >
+      <img
+        src="/logo-light.svg"
+        width="200"
+        height="200"
+        alt="Christian Rebelsky Logo"
+      />
+    </a>
+    <h1 class="hero-teaser">Coming Soon</h1>
+  </main>
+  <Footer />
 </Layout>
