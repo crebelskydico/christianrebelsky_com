@@ -2,6 +2,11 @@
 import Header from '@components/Header.astro'
 import Footer from '@components/Footer.astro'
 import Layout from '@layouts/index.astro'
+import { head } from '@vercel/blob';
+
+const logo = await head('christianrebelskycom/images/logo-light.svg', {
+  token: import.meta.env.BLOB_READ_WRITE_TOKEN,
+});
 ---
 
 <Layout page="Home">
@@ -14,7 +19,7 @@ import Layout from '@layouts/index.astro'
       class={`h-full flex items-center justify-center py-12`}
     >
       <img
-        src="/logo-light.svg"
+        src={logo.url}
         width="200"
         height="200"
         alt="Christian Rebelsky Logo"
